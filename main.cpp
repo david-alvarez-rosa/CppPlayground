@@ -1,34 +1,46 @@
-#include <iostream>
-#include <string>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-class Solution {
- public:
-  string mergeAlternately(string word1, string word2) {
-    int n1 = word1.length();
-    int n2 = word2.length();
-    int n = min(n1, n2);
-    string ans;
+vector<string> ParseInputFile(const string& file_name) {
+  vector<string> input;
+  ifstream file_stream{file_name};
+  string line;
+  while (file_stream >> line) input.emplace_back(line);
+  return input;
+}
 
-    for (int i = 0; i < n; ++i) {
-      ans = ans + word1[i] + word2[i];
+int ParseDigit(const string& l, int i) {
+  if (const auto c{l[i] - '0'}; c >= 0 && c <= 9) return c;
+  if (l.substr(i, 3) == "one") return 1;
+  if (l.substr(i, 3) == "two") return 2;
+  if (l.substr(i, 5) == "three") return 3;
+  if (l.substr(i, 4) == "four") return 4;
+  if (l.substr(i, 4) == "five") return 5;
+  if (l.substr(i, 3) == "six") return 6;
+  if (l.substr(i, 5) == "seven") return 7;
+  if (l.substr(i, 5) == "eight") return 8;
+  if (l.substr(i, 4) == "nine") return 9;
+  return -1;
+}
+
+int Solve(const vector<string>& input) {
+  int ans{0};
+
+  for (const auto& l : input) {
+    int first{-1}, last;
+    for (int i{0}; i < l.length(); i++) {
+      if (const auto d{ParseDigit(l, i)}; d != -1) {
+        if (first == -1) first = d;
+        last = d;
+      }
     }
-
-    for (int i = n; i < n1; ++i) {
-      ans = ans + word1[i];
-    }
-
-    for (int i = n; i < n2; ++i) {
-      ans = ans + word2[i];
-    }
-
-    return ans;
+    ans += 10 * first + last;
   }
-};
 
-int main() {
-  Solution solution;
-  cout << solution.mergeAlternately("abc", "pqr") << endl;
-  string s;
+  return ans;
+}
+
+int main(int argc, char* argv[]) {
+  auto input = ParseInputFile(argv[1]);
+  cout << Solve(input) << endl;
 }
