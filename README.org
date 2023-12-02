@@ -1,0 +1,2 @@
+* C++ Playground
+This repository will be used as a playground for C++.
