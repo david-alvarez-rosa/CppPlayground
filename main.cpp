@@ -27,7 +27,7 @@ int Solve(const vector<string>& input) {
   int ans{0};
 
   for (const auto& l : input) {
-    int first{-1}, last;
+    int first{-1}, last{-1};
     for (int i{0}; i < l.length(); i++) {
       if (const auto d{ParseDigit(l, i)}; d != -1) {
         if (first == -1) first = d;
