@@ -58,7 +58,7 @@ int Power(const Game& game) {
 }
 
 int Solve(const vector<Game>& games) {
-  return std::accumulate(
+  return accumulate(
       games.cbegin(), games.cend(), 0,
       [](int total, const Game& game) { return total + Power(game); });
 }
