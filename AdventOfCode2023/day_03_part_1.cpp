@@ -1,40 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<string> ParseInputFile(const string& file_name) {
-  vector<string> input;
+vector<string> engine;
+
+void ParseInputFile(const string& file_name) {
   ifstream file_stream{file_name};
   string line;
-  while (file_stream >> line) input.emplace_back(line);
-  return input;
+  while (file_stream >> line) engine.emplace_back(line);
 }
 
 bool IsDigit(char c) { return c - '0' >= 0 && c - '0' <= 9; }
 
 bool IsSymbol(char c) { return c != '.' && !IsDigit(c); }
 
-bool IsAdjacentToSymbol(const vector<string>& input, int i, int j) {
-  if (i - 1 >= 0 && IsSymbol(input[i - 1][j])) return true;
-  if (i - 1 >= 0 && j - 1 >= 0 && IsSymbol(input[i - 1][j - 1])) return true;
-  if (i - 1 >= 0 && j + 1 < input[0].size() && IsSymbol(input[i - 1][j + 1])) return true;
-  if (j - 1 >= 0 && IsSymbol(input[i][j - 1])) return true;
-  if (j + 1 < input[0].size() && IsSymbol(input[i][j + 1])) return true;
-  if (i + 1 < input.size() && IsSymbol(input[i + 1][j])) return true;
-  if (i + 1 < input.size() && j - 1 >= 0 && IsSymbol(input[i + 1][j - 1])) return true;
-  if (i + 1 < input.size() && j + 1 < input[0].size() && IsSymbol(input[i + 1][j + 1])) return true;
-  return false;
+bool IsValidPosition(pair<int, int> pos) {
+  auto [i, j] = pos;
+  return i >= 0 && i < engine.size() && j >= 0 && j < engine[0].size();
 }
 
-int Solve(const vector<string>& input) {
+bool IsAdjacentToSymbol(int i, int j) {
+  const vector<pair<int, int>> adjacent_positions = {
+      {i - 1, j}, {i - 1, j - 1}, {i - 1, j + 1}, {i, j - 1},
+      {i, j + 1}, {i + 1, j},     {i + 1, j - 1}, {i + 1, j + 1},
+  };
+
+  return any_of(
+      adjacent_positions.cbegin(), adjacent_positions.cend(), [](auto pos) {
+        return IsValidPosition(pos) && IsSymbol(engine[pos.first][pos.second]);
+      });
+}
+
+int Solve() {
   int ans{0};
-  for (int i{0}; i < input.size(); ++i) {
+  for (int i{0}; i < engine.size(); ++i) {
     int current{0};
     bool is_part_number{false};
-    for (int j{0}; j < input[0].length(); ++j) {
-      const auto c = input[i][j];
+    for (int j{0}; j < engine[0].length(); ++j) {
+      const auto c = engine[i][j];
       if (IsDigit(c)) {
         current = 10 * current + c - '0';
-        if (IsAdjacentToSymbol(input, i, j)) is_part_number = true;
+        if (IsAdjacentToSymbol(i, j)) is_part_number = true;
       } else {
         if (is_part_number) ans += current;
         current = 0;
@@ -47,6 +52,6 @@ int Solve(const vector<string>& input) {
 }
 
 int main(int argc, char* argv[]) {
-  auto input = ParseInputFile(argv[1]);
-  cout << Solve(input) << endl;
+  ParseInputFile(argv[1]);
+  cout << Solve() << endl;
 }
