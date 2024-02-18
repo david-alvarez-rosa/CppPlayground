@@ -1,2 +1,10 @@
 * C++ Leetcode
 This repository will be used as a Leetcode playground for C++.
+
+Basic usage is to create ~TEST~ as needed and then
+#+begin_src shell
+  cmake -DCMAKE_BUILD_TYPE=Debug -B build  # first time
+  cmake --build build  # for just building
+  ./build/cpp_playground  # for manual run
+  cmake --build build && ./build/cpp_leetcode  # for normal use
+#+end_src
