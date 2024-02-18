@@ -1,0 +1,2 @@
+* C++ Leetcode
+This repository will be used as a Leetcode playground for C++.
