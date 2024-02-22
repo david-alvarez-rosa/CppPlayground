@@ -111,37 +111,37 @@ MATCHER(IsSorted, "A sorted iterable container") {
 }
 
 TEST(Sort, SelectionSort) {
-  constexpr size_t number_iterations{25};
-  for (size_t i{0}; i < number_iterations; i++) {
-    auto vector = GenerateRandomVector();
-    SelectionSort(vector);
-    EXPECT_THAT(vector, IsSorted());
+  size_t number_iterations{25};
+  while (number_iterations--) {
+    auto v = GenerateRandomVector();
+    SelectionSort(v);
+    EXPECT_THAT(v, IsSorted());
   }
 }
 
 TEST(Sort, InsertionSort) {
-  constexpr size_t number_iterations{25};
-  for (size_t i{0}; i < number_iterations; i++) {
-    auto vector = GenerateRandomVector();
-    InsertionSort(vector);
-    EXPECT_THAT(vector, IsSorted());
+  size_t number_iterations{25};
+  while (number_iterations--) {
+    auto v = GenerateRandomVector();
+    InsertionSort(v);
+    EXPECT_THAT(v, IsSorted());
   }
 }
 
 TEST(Sort, MergeSort) {
-  constexpr size_t number_iterations{25};
-  for (size_t i{0}; i < number_iterations; i++) {
-    auto vector = GenerateRandomVector();
-    MergeSort(vector, 0, vector.size());
-    EXPECT_THAT(vector, IsSorted());
+  size_t number_iterations{25};
+  while (number_iterations--) {
+    auto v = GenerateRandomVector();
+    MergeSort(v, 0, v.size());
+    EXPECT_THAT(v, IsSorted());
   }
 }
 
 TEST(Sort, QuickSort) {
-  constexpr size_t number_iterations{25};
-  for (size_t i{0}; i < number_iterations; i++) {
-    auto vector = GenerateRandomVector();
-    QuickSort(vector, 0, vector.size());
-    EXPECT_THAT(vector, IsSorted());
+  size_t number_iterations{25};
+  while (number_iterations--) {
+    auto v = GenerateRandomVector();
+    QuickSort(v, 0, v.size());
+    EXPECT_THAT(v, IsSorted());
   }
 }
