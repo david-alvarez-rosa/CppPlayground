@@ -13,7 +13,7 @@ FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 
 add_executable(cpp_leetcode "main.cpp")
-target_link_libraries(cpp_leetcode GTest::gtest_main)
+target_link_libraries(cpp_leetcode PRIVATE GTest::gtest_main GTest::gmock_main)
 
 enable_testing()
 gtest_discover_tests(cpp_leetcode)
