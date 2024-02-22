@@ -1,6 +1,6 @@
 #include "bits/stdc++.h"
-#include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <gtest/gtest.h>
 using namespace std;
 
 class Solution {
