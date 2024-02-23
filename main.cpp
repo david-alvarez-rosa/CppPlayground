@@ -1,53 +1,46 @@
 #include <bits/stdc++.h>
-#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 using namespace std;
 
 class Solution {
  public:
-  vector<int> topKFrequent(vector<int>& nums, int k) {
-    unordered_map<int, int> fqs;
-    for (const auto num : nums) {
-      fqs[num]++;
-    }
-
-    vector<int> fq_values;
-    fq_values.reserve(fqs.size());
-    for (const auto [num, fq] : fqs) fq_values.emplace_back(fq);
-
-    sort(fq_values.begin(), fq_values.end());
-    int fq_k = fq_values[fq_values.size() - k];
-
-    vector<int> ans;
-    ans.reserve(k);
-    for (const auto [num, fq] : fqs) {
-      if (fq >= fq_k) {
-        ans.emplace_back(num);
-      }
-    }
-
-    return ans;
+  int lengthOfLIS(vector<int>& nums) {
+    dp_ =
+        vector<vector<int>>(nums.size() + 1, vector<int>(nums.size() + 1, -1));
+    nums_ = std::move(nums);
+    return f(0, nums_.size());
   }
+
+ private:
+  int f(int start, int prev) {
+    auto& x = dp_[start][prev];
+    if (x != -1) return x;
+    if (start == nums_.size()) return x = 0;
+    int ans = f(start + 1, prev);
+    if (prev == nums_.size() || nums_[start] > nums_[prev])
+      ans = max(ans, 1 + f(start + 1, start));
+    return x = ans;
+  }
+
+  vector<vector<int>> dp_;
+  vector<int> nums_;
 };
 
 TEST(SolutionTest, Test1) {
   Solution solution;
-  vector<int> input{1, 1, 1, 2, 2, 3};
-  EXPECT_THAT(solution.topKFrequent(input, 2),
-              testing::UnorderedElementsAre(1, 2));
+  vector<int> nums{10, 9, 2, 5, 3, 7, 101, 18};
+  EXPECT_EQ(4, solution.lengthOfLIS(nums));
 }
 
 TEST(SolutionTest, Test2) {
   Solution solution;
-  vector<int> input{1};
-  EXPECT_THAT(solution.topKFrequent(input, 1),
-              testing::UnorderedElementsAre(1));
+  vector<int> nums{0, 1, 0, 3, 2, 3};
+  EXPECT_EQ(4, solution.lengthOfLIS(nums));
 }
 
-TEST(SolutionTest, Test9) {
+TEST(SolutionTest, Test3) {
   Solution solution;
-  vector<int> input{1, 2};
-  EXPECT_THAT(solution.topKFrequent(input, 2),
-              testing::UnorderedElementsAre(1, 2));
+  vector<int> nums{7, 7, 7, 7, 7, 7, 7};
+  EXPECT_EQ(1, solution.lengthOfLIS(nums));
 }
