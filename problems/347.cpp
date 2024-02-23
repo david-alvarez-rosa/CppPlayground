@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include "bits/stdc++.h"
+
 using namespace std;
 
 class Solution {
