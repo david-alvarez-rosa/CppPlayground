@@ -1,10 +1,90 @@
 * C++ Leetcode
-This repository will be used as a Leetcode playground for C++.
+C++ playground repository for solving Leetcode problems.
 
-Basic usage is to create ~TEST~ as needed and then
+** Usage
+*** Pre-requisite
+Install GoogleTest C++ testing framework on your machine:
 #+begin_src shell
-  cmake -DCMAKE_BUILD_TYPE=Debug -B build  # first time
-  cmake --build build  # for just building
-  ./build/cpp_playground  # for manual run
-  cmake --build build && ./build/cpp_leetcode  # for normal use
+  pacman -S gtest  # Arch Linux
+  apt-get install libgmock-dev libgtest-dev  # Debian-based
+  brew install googletest  # MacOS
+#+end_src
+
+*** Setup
+Only setup required is for CMake (just needed once)
+#+begin_src shell
+  cmake -DCMAKE_BUILD_TYPE=Debug -B build
+#+end_src
+
+*** Usage
+Write your solution for the Leetcode problem, build and run
+#+begin_src shell
+  cmake --build build  # build
+  ./build/cpp_leetcode  # run
+#+end_src
+
+which can be combined
+#+begin_src shell
+  cmake --build build && ./build/cpp_leetcode
+#+end_src
+
+For running a specific tests, the following commands are useful
+#+begin_src shell
+  ./build/cpp_leetcode --help
+  ./build/cpp_leetcode --gtest_list_tests
+  ./build/cpp_leetcode --gtest_filter='*.<matcher>'
+#+end_src
+
+*** Debug
+Problem can be debugged with GDB or LLDB
+#+begin_src shell
+  lldb ./build/cpp_leetcode
+  gdb ./build/cpp_leetcode
+#+end_src
+
+*** Example
+Solution for Leetcode 1 problem `twoSum`.
+#+begin_src c++
+  #include <bits/stdc++.h>
+  #include <gtest/gtest.h>
+
+  using namespace std;
+
+  class Solution {
+   public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+      for (int i{0}; i < nums.size(); i++) {
+        for (int j{i + 1}; j < nums.size(); j++) {
+          if (nums[i] + nums[j] == target) {
+            return {i, j};
+          }
+        }
+      }
+      return {0, 0};
+    }
+  };
+
+  TEST(SolutionTest, Test1) {
+    Solution solution;
+    vector<int> input_1{2, 7, 11, 15};
+    auto actual_sol = solution.twoSum(input_1, 9);
+    vector<int> expected_sol{0, 1};
+    EXPECT_EQ(actual_sol, expected_sol);
+  }
+
+  TEST(SolutionTest, Test2) {
+    Solution solution;
+    vector<int> input_1{3, 2, 4};
+    auto actual_sol = solution.twoSum(input_1, 6);
+    vector<int> expected_sol{1, 2};
+    EXPECT_EQ(actual_sol, expected_sol);
+  }
+
+  TEST(SolutionTest, Test3) {
+    Solution solution;
+    vector<int> input_1{3, 3};
+    auto actual_sol = solution.twoSum(input_1, 6);
+    vector<int> expected_sol{0, 1};
+    EXPECT_EQ(actual_sol, expected_sol);
+  }
 #+end_src
