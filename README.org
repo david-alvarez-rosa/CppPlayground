@@ -88,3 +88,9 @@ Solution for Leetcode 1 problem `twoSum`.
     EXPECT_EQ(actual_sol, expected_sol);
   }
 #+end_src
+
+** Contributions
+Feel free to raise PR for improvements / suggestions :)
+
+** Author
+David Álvarez Rosa
