@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+set -e
+
 cp main.cpp main.cpp.backup
 
 find . -name '*.cpp' -not -path './build/*' -mindepth 2 | while read -r file_path
