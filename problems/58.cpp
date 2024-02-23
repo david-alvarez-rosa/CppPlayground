@@ -1,19 +1,18 @@
-#include "bits/stdc++.h"
 #include <gtest/gtest.h>
+
+#include "bits/stdc++.h"
 using namespace std;
 
 class Solution {
-public:
+ public:
   int lengthOfLastWord(string s) {
     int n = s.size();
     while (n--) {
-      if (s[n] != ' ')
-        break;
+      if (s[n] != ' ') break;
     }
     n++;
     for (auto i{n - 1}; i >= 0; i--) {
-      if (s[i] == ' ')
-        return n - i - 1;
+      if (s[i] == ' ') return n - i - 1;
     }
     return n;
   }

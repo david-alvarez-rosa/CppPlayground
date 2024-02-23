@@ -1,10 +1,11 @@
-#include "bits/stdc++.h"
 #include <gtest/gtest.h>
+
+#include "bits/stdc++.h"
 using namespace std;
 
 class Solution {
-public:
-  int missingNumber(vector<int> &nums) {
+ public:
+  int missingNumber(vector<int>& nums) {
     auto n{nums.size()};
     vector<bool> found(n + 1, false);
     for (const auto num : nums) found[num] = true;

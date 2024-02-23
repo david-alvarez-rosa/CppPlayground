@@ -1,9 +1,10 @@
-#include "bits/stdc++.h"
 #include <gtest/gtest.h>
+
+#include "bits/stdc++.h"
 using namespace std;
 
 class Solution {
-public:
+ public:
   bool isPowerOfTwo(int n) { return n >= 1 && !(n & (n - 1)); }
 };
 

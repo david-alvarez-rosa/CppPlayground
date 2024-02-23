@@ -1,11 +1,12 @@
-#include "bits/stdc++.h"
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+
+#include "bits/stdc++.h"
 using namespace std;
 
 class Solution {
-public:
-  vector<int> topKFrequent(vector<int> &nums, int k) {
+ public:
+  vector<int> topKFrequent(vector<int>& nums, int k) {
     unordered_map<int, int> fqs;
     for (const auto num : nums) {
       fqs[num]++;
@@ -13,8 +14,7 @@ public:
 
     vector<int> fq_values;
     fq_values.reserve(fqs.size());
-    for (const auto [num, fq] : fqs)
-      fq_values.emplace_back(fq);
+    for (const auto [num, fq] : fqs) fq_values.emplace_back(fq);
 
     sort(fq_values.begin(), fq_values.end());
     int fq_k = fq_values[fq_values.size() - k];
