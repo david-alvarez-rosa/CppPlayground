@@ -6,11 +6,8 @@ on:
   pull_request:
     branches: [ "master" ]
 
-env:
-  BUILD_TYPE: Release
-
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,4 +20,4 @@ jobs:
       run: sudo apt-get install libgmock-dev libgtest-dev
 
     - name: Run tests
-      run: ${{github.workspace}}/run-tests.sh
+      run: ${{github.workspace}}/run-tests.sh || exit 1
