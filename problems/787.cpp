@@ -1,7 +1,6 @@
+#include <bits/stdc++.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <bits/stdc++.h>
 
 using namespace std;
 
