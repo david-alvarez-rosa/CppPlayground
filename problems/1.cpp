@@ -30,5 +30,5 @@ TEST(SolutionTest, Test2) {
 TEST(SolutionTest, Test3) {
   Solution solution;
   vector<int> nums{3, 3};
-  EXPECT_THAT(solution.twoSum(nums, 9), UnorderedElementsAre(0, 1));
+  EXPECT_THAT(solution.twoSum(nums, 6), UnorderedElementsAre(0, 1));
 }
