@@ -3,51 +3,35 @@
 #include <gtest/gtest.h>
 
 using namespace std;
+using namespace testing;
 
 class Solution {
  public:
-  vector<int> topKFrequent(vector<int>& nums, int k) {
-    unordered_map<int, int> fqs;
-    for (const auto num : nums) {
-      fqs[num]++;
+  vector<int> twoSum(vector<int>& nums, int target) {
+    unordered_map<int, int> mp;  // (nums[i], i)
+    for (int i{0}; i < nums.size(); i++) {
+      const auto complement = target - nums[i];
+      if (mp.contains(complement)) return {i, mp[complement]};
+      mp[nums[i]] = i;
     }
-
-    vector<int> fq_values;
-    fq_values.reserve(fqs.size());
-    for (const auto [num, fq] : fqs) fq_values.emplace_back(fq);
-
-    sort(fq_values.begin(), fq_values.end());
-    int fq_k = fq_values[fq_values.size() - k];
-
-    vector<int> ans;
-    ans.reserve(k);
-    for (const auto [num, fq] : fqs) {
-      if (fq >= fq_k) {
-        ans.emplace_back(num);
-      }
-    }
-
-    return ans;
+    return {0, 0};
   }
 };
 
 TEST(SolutionTest, Test1) {
   Solution solution;
-  vector<int> input{1, 1, 1, 2, 2, 3};
-  EXPECT_THAT(solution.topKFrequent(input, 2),
-              testing::UnorderedElementsAre(1, 2));
+  vector<int> nums{2, 7, 11, 15};
+  EXPECT_THAT(solution.twoSum(nums, 9), UnorderedElementsAre(0, 1));
 }
 
 TEST(SolutionTest, Test2) {
   Solution solution;
-  vector<int> input{1};
-  EXPECT_THAT(solution.topKFrequent(input, 1),
-              testing::UnorderedElementsAre(1));
+  vector<int> nums{3, 2, 4};
+  EXPECT_THAT(solution.twoSum(nums, 6), UnorderedElementsAre(1, 2));
 }
 
-TEST(SolutionTest, Test9) {
+TEST(SolutionTest, Test3) {
   Solution solution;
-  vector<int> input{1, 2};
-  EXPECT_THAT(solution.topKFrequent(input, 2),
-              testing::UnorderedElementsAre(1, 2));
+  vector<int> nums{3, 3};
+  EXPECT_THAT(solution.twoSum(nums, 6), UnorderedElementsAre(0, 1));
 }
