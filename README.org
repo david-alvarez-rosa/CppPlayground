@@ -46,19 +46,20 @@ Problem can be debugged with GDB or LLDB
 Solution for Leetcode 1 problem `twoSum`.
 #+begin_src c++
   #include <bits/stdc++.h>
+  #include <gmock/gmock.h>
   #include <gtest/gtest.h>
 
   using namespace std;
+  using namespace testing;
 
   class Solution {
    public:
     vector<int> twoSum(vector<int>& nums, int target) {
+      unordered_map<int, int> mp;  // (nums[i], i)
       for (int i{0}; i < nums.size(); i++) {
-        for (int j{i + 1}; j < nums.size(); j++) {
-          if (nums[i] + nums[j] == target) {
-            return {i, j};
-          }
-        }
+        const auto complement = target - nums[i];
+        if (mp.contains(complement)) return {i, mp[complement]};
+        mp[nums[i]] = i;
       }
       return {0, 0};
     }
@@ -66,31 +67,25 @@ Solution for Leetcode 1 problem `twoSum`.
 
   TEST(SolutionTest, Test1) {
     Solution solution;
-    vector<int> input_1{2, 7, 11, 15};
-    auto actual_sol = solution.twoSum(input_1, 9);
-    vector<int> expected_sol{0, 1};
-    EXPECT_EQ(actual_sol, expected_sol);
+    vector<int> nums{2, 7, 11, 15};
+    EXPECT_THAT(solution.twoSum(nums, 9), UnorderedElementsAre(0, 1));
   }
 
   TEST(SolutionTest, Test2) {
     Solution solution;
-    vector<int> input_1{3, 2, 4};
-    auto actual_sol = solution.twoSum(input_1, 6);
-    vector<int> expected_sol{1, 2};
-    EXPECT_EQ(actual_sol, expected_sol);
+    vector<int> nums{3, 2, 4};
+    EXPECT_THAT(solution.twoSum(nums, 6), UnorderedElementsAre(1, 2));
   }
 
   TEST(SolutionTest, Test3) {
     Solution solution;
-    vector<int> input_1{3, 3};
-    auto actual_sol = solution.twoSum(input_1, 6);
-    vector<int> expected_sol{0, 1};
-    EXPECT_EQ(actual_sol, expected_sol);
+    vector<int> nums{3, 3};
+    EXPECT_THAT(solution.twoSum(nums, 6), UnorderedElementsAre(0, 1));
   }
 #+end_src
 
 ** Contributions
-Feel free to raise PR for improvements / suggestions :)
+Feel free to raise a PR for improvements / suggestions :)
 
 ** Author
 David Álvarez Rosa
