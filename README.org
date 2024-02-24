@@ -43,7 +43,7 @@ Problem can be debugged with GDB or LLDB
 #+end_src
 
 *** Example
-Solution for Leetcode 1 problem `twoSum`.
+Solution for Leetcode 1 problem ~twoSum~.
 #+begin_src c++
   #include <bits/stdc++.h>
   #include <gmock/gmock.h>
