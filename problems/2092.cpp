@@ -25,7 +25,8 @@ class Solution {
       auto person_x = meeting[0];
       auto person_y = meeting[1];
       auto meeting_time = meeting[2];
-      if (!adjs.contains(meeting_time)) adjs[meeting_time] = vector<vector<int>>(n);
+      if (!adjs.contains(meeting_time))
+        adjs[meeting_time] = vector<vector<int>>(n);
       adjs[meeting_time][person_x].emplace_back(person_y);
       adjs[meeting_time][person_y].emplace_back(person_x);
     }
@@ -58,7 +59,8 @@ class Solution {
     }
 
     vector<int> ans;
-    for (size_t i{0}; i < n; i++) if (secret[i]) ans.emplace_back(i);
+    for (size_t i{0}; i < n; i++)
+      if (secret[i]) ans.emplace_back(i);
 
     return ans;
   }
