@@ -20,7 +20,7 @@ class Solution {
     auto left_diameter = diameterOfBinaryTree(root->left);
     auto right_diameter = diameterOfBinaryTree(root->right);
     auto root_diameter = height(root->left) + height(root->right);
-    return max(left_diameter, max(right_diameter, root_diameter));
+    return max({left_diameter, right_diameter, root_diameter});
   }
 
  private:
