@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 #include <gtest/gtest.h>
 
-#include <algorithm>
-
 using namespace std;
 
 class Solution {
