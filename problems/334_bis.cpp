@@ -8,9 +8,12 @@ class Solution {
   bool increasingTriplet(vector<int>& nums) {
     auto a{INT_MAX}, b{INT_MAX};
     for (const auto num : nums) {
-      if (num <= a) a = num;
-      else if (num <= b) b = num;
-      else return true;
+      if (num <= a)
+        a = num;
+      else if (num <= b)
+        b = num;
+      else
+        return true;
     }
     return false;
   }
