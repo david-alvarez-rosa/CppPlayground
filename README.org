@@ -10,6 +10,13 @@ Install GoogleTest C++ testing framework on your machine:
   brew install googletest  # MacOS
 #+end_src
 
+Also, make sure that the ~bits/stdc++.h~ header is present on your
+machine.  If not, you can download and install it manually.  See for
+example how to do it in MacOS:
+#+begin_src shell
+  sudo cp -r bits /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/
+#+end_src
+
 *** Setup
 Only setup required is for CMake (just needed once)
 #+begin_src shell
