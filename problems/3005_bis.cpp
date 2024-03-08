@@ -10,7 +10,7 @@ class Solution {
     for (const auto num : nums) fqs[num]++;
 
     int max_fq{0};
-    for (const auto [num, fq] : fqs) max_fq = max(max_fq, fq);
+    for (const auto [_, fq] : fqs) max_fq = max(max_fq, fq);
 
     int ans{0};
     for (const auto [_, fq] : fqs)
