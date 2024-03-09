@@ -14,8 +14,10 @@ class Solution {
     vector<int> ans(n, 0);
     for (size_t i{0}; i < n; i++) {
       for (const auto potion : potions) {
-        if ((long long)spells[i] * potion >= success) ans[i]++;
-        else break;
+        if ((long long)spells[i] * potion >= success)
+          ans[i]++;
+        else
+          break;
       }
     }
     return ans;
