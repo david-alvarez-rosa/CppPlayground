@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 #include <gtest/gtest.h>
 
-#include <vector>
-
 using namespace std;
 
 namespace {
