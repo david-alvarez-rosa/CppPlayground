@@ -12,6 +12,7 @@ class Solution {
     return -1;
   }
 };
+
 TEST(SolutionTest, Test1) {
   Solution solution;
   vector<int> nums{1, 3, 4, 2, 2};
