@@ -7,11 +7,13 @@ class Solution {
  public:
   int numSubarrayProductLessThanK(vector<int>& nums, int k) {
     int ans{0};
-    for (size_t i{0}; i < nums.size(); i++)
-      for (size_t j{i}; j < nums.size(); j++)
-        if (accumulate(nums.cbegin() + i, nums.cbegin() + j + 1, 1.0,
-                       multiplies<double>()) < k)
-          ans++;
+    double product{1};
+    int j{0};
+    for (int i{0}; i < nums.size(); i++) {
+      if (i - 1 >= 0) product /= nums[i - 1];
+      while (j < nums.size() && product * nums[j] < k) product *= nums[j++];
+      ans += max(0, j - i);
+    }
 
     return ans;
   }
