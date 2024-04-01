@@ -7,31 +7,25 @@ class Solution {
  public:
   int lengthOfLastWord(string s) {
     int n = s.size();
-    while (n--) {
-      if (s[n] != ' ') break;
-    }
-    n++;
-    for (auto i{n - 1}; i >= 0; i--) {
-      if (s[i] == ' ') return n - i - 1;
-    }
-    return n;
+    while (s[--n] == ' ')
+      ;
+    for (auto i{n}; i >= 0; i--)
+      if (s[i] == ' ') return n - i;
+    return n + 1;
   }
 };
 
 TEST(SolutionTest, Test1) {
   Solution solution;
-  auto actual_sol = solution.lengthOfLastWord("Hello World");
-  EXPECT_EQ(actual_sol, 5);
+  EXPECT_EQ(5, solution.lengthOfLastWord("Hello World"));
 }
 
 TEST(SolutionTest, Test2) {
   Solution solution;
-  auto actual_sol = solution.lengthOfLastWord("   fly me   to   the moon  ");
-  EXPECT_EQ(actual_sol, 4);
+  EXPECT_EQ(4, solution.lengthOfLastWord("   fly me   to   the moon  "));
 }
 
 TEST(SolutionTest, Test3) {
   Solution solution;
-  auto actual_sol = solution.lengthOfLastWord("luffy is still joyboy");
-  EXPECT_EQ(actual_sol, 6);
+  EXPECT_EQ(6, solution.lengthOfLastWord("luffy is still joyboy"));
 }
