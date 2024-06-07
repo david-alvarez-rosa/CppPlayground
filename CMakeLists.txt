@@ -3,6 +3,7 @@ project(CppLeetcode)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+# set(CMAKE_CXX_FLAGS_DEBUG "-fsanitize=address,
 
 find_package(GTest REQUIRED)
 add_executable(cpp_leetcode "main.cpp")
