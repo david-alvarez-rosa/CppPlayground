@@ -1,8 +1,11 @@
-* C++ Leetcode
-C++ playground repository for solving Leetcode problems.
+* C++ Playground
+This repository will be used as a playground for C++.
 
-** Usage
-*** Pre-requisite
+** Leetcode Problems
+Instructions for solving Leetcode problems.
+
+*** Usage
+**** Pre-requisite
 Install GoogleTest C++ testing framework on your machine:
 #+begin_src shell
   pacman -S gtest  # Arch Linux
@@ -17,13 +20,13 @@ example how to do it in MacOS:
   sudo cp -r bits /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/
 #+end_src
 
-*** Setup
+**** Setup
 Only setup required is for CMake (just needed once)
 #+begin_src shell
   cmake -DCMAKE_BUILD_TYPE=Debug -B build
 #+end_src
 
-*** Usage
+**** Usage
 Write your solution for the Leetcode problem, build and run
 #+begin_src shell
   cmake --build build  # build
@@ -42,14 +45,14 @@ For running a specific tests, the following commands are useful
   ./build/cpp_leetcode --gtest_filter='*.<matcher>'
 #+end_src
 
-*** Debug
+**** Debug
 Problem can be debugged with GDB or LLDB
 #+begin_src shell
   lldb ./build/cpp_leetcode
   gdb ./build/cpp_leetcode
 #+end_src
 
-*** Example
+**** Example
 Solution for Leetcode 1 problem ~twoSum~.
 #+begin_src c++
   #include <bits/stdc++.h>
