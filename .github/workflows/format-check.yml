@@ -22,5 +22,9 @@ jobs:
     - name: clang-format files
       run: find . -name '*.cpp' -not -path './build/*' | xargs -n1 clang-format -i
 
+    - name: testda
+      run: git status
+
+
     - name: Check if something changed
       run: git diff-index --quiet HEAD || exit 1
