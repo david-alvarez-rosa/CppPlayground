@@ -1,33 +1,43 @@
 #include <bits/stdc++.h>
-#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 using namespace std;
-using namespace testing;
 
 class Solution {
  public:
-  vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
-    set<int> set1(nums1.cbegin(), nums1.cend());
-    set<int> set2(nums2.cbegin(), nums2.cend());
+  string customSortString(string order, string s) {
+    unordered_map<char, int> fqs;
+    for (const auto c : s) fqs[c]++;
 
-    vector<int> ans;
-    set_intersection(set1.cbegin(), set1.cend(), set2.cbegin(), set2.cend(),
-                     back_inserter(ans));
+    string ans;
+    ans.reserve(order.length());
+    for (const auto c : order)
+      if (fqs.contains(c)) ans.append(fqs[c], c);
+
+    for (const auto c : s)
+      if (find(order.begin(), order.end(), c) == order.end()) ans += c;
+
     return ans;
   }
 };
 
 TEST(SolutionTest, Test1) {
   Solution solution;
-  vector<int> nums1{1, 2, 2, 1};
-  vector<int> nums2{2, 2};
-  EXPECT_THAT(solution.intersection(nums1, nums2), UnorderedElementsAre(2));
+  string order{"cba"};
+  string s{"abcd"};
+  EXPECT_EQ("cbad", solution.customSortString(order, s));
 }
 
 TEST(SolutionTest, Test2) {
   Solution solution;
-  vector<int> nums1{4, 9, 5};
-  vector<int> nums2{9, 4, 9, 8, 4};
-  EXPECT_THAT(solution.intersection(nums1, nums2), UnorderedElementsAre(4, 9));
+  string order{"bcafg"};
+  string s{"abcd"};
+  EXPECT_EQ("bcad", solution.customSortString(order, s));
+}
+
+TEST(SolutionTest, Test3) {
+  Solution solution;
+  string order{"exv"};
+  string s{"xwvee"};
+  EXPECT_EQ("eexvw", solution.customSortString(order, s));
 }
