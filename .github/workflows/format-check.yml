@@ -26,5 +26,9 @@ jobs:
       run: git status
 
 
+    - name: testdaa
+      run: git diff
+
+
     - name: Check if something changed
       run: git diff-index --quiet HEAD || exit 1
