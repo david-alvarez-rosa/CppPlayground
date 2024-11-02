@@ -7,7 +7,9 @@ class Solution {
  public:
   int lengthOfLastWord(string s) {
     int n = s.size();
+    // clang-format off
     while (s[--n] == ' ');
+    // clang-format on
     for (auto i{n}; i >= 0; i--)
       if (s[i] == ' ') return n - i;
     return n + 1;
