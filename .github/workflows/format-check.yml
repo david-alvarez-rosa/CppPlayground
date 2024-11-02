@@ -13,7 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: clang-format files
+    - name: test
+      run: find . -name '*.cpp' -not -path './build/*'
+
+   - name: clang-format files
       run: find . -name '*.cpp' -not -path './build/*' | xargs -n1 clang-format -i
 
     - name: Check if something changed
