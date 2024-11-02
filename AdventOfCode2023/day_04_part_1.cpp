@@ -23,7 +23,8 @@ vector<string> SplitByDelimiter(const string& s, char d) {
 
 Scratchcard ParseLine(const string& line) {
   auto semicolon_pos = line.find(":");
-  auto clean_line = line.substr(semicolon_pos + 1, line.size() - semicolon_pos - 1);
+  auto clean_line =
+      line.substr(semicolon_pos + 1, line.size() - semicolon_pos - 1);
   auto split_line = SplitByDelimiter(clean_line, '|');
 
   vector<int> winning_numbers;

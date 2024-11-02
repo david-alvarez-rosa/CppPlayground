@@ -14,7 +14,7 @@ class Solution {
  private:
   int f(int step) {
     if (step > cost_.size()) return INT_MAX;
-    auto &x = dp_[step];
+    auto& x = dp_[step];
     if (x != -1) return x;
     if (step == cost_.size()) return x = 0;
     return x = cost_[step] + min(f(step + 1), f(step + 2));
