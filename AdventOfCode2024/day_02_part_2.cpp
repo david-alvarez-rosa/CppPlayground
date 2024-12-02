@@ -7,7 +7,8 @@
 
 class Report final {
  public:
-  explicit Report(std::vector<int> levels) noexcept : levels_{levels} {}
+  explicit Report(std::vector<int> levels) noexcept
+      : levels_{std::move(levels)} {}
 
   auto IsSafe() const noexcept -> bool {
     // Lazy fuck
@@ -15,7 +16,9 @@ class Report final {
     for (size_t i{0}; i < levels_.size(); ++i) {
       auto tmp_levels = levels_;
       tmp_levels.erase(tmp_levels.begin() + i);
-      if (IsSafePure(tmp_levels)) return true;
+      if (IsSafePure(tmp_levels)) {
+        return true;
+      }
     }
     return false;
   }
@@ -24,17 +27,22 @@ class Report final {
   std::vector<int> levels_;
 
   static auto IsSafePure(const std::vector<int>& levels) noexcept -> bool {
-    if (levels.size() <= 1) return true;
+    if (levels.size() <= 1) {
+      return true;
+    }
 
     auto is_increasing = (levels[1] - levels[0]) > 0;
 
-    auto is_safe_pair = [&is_increasing](const auto left, const auto right) {
+    auto is_safe_pair = [is_increasing](const auto left, const auto right) {
       return is_increasing == right > left && std::abs(left - right) >= 1 &&
              std::abs(left - right) <= 3;
     };
 
-    for (size_t i{1}; i < levels.size(); ++i)
-      if (!is_safe_pair(levels[i - 1], levels[i])) return false;
+    for (size_t i{1}; i < levels.size(); ++i) {
+      if (!is_safe_pair(levels[i - 1], levels[i])) {
+        return false;
+      }
+    }
 
     return true;
   }
@@ -49,13 +57,17 @@ auto ParseInputFile(const std::string& file_name) noexcept -> Reports {
     auto levels = std::vector<int>{};
     auto level{0};
     auto line_stream = std::istringstream{line};
-    while (line_stream >> level) levels.emplace_back(level);
+    while (line_stream >> level) {
+      levels.emplace_back(level);
+    }
     reports.emplace_back(levels);
   };
 
   std::ifstream file_stream{file_name};
   auto line = std::string{};
-  while (std::getline(file_stream, line)) parse_line(line);
+  while (std::getline(file_stream, line)) {
+    parse_line(line);
+  }
 
   return reports;
 }
