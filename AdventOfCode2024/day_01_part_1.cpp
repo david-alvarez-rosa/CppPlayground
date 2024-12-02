@@ -10,7 +10,7 @@ struct LocationIds {
   std::vector<int> right_ids;
 };
 
-auto ComputeSimilarity(LocationIds& location_ids) -> int {
+auto ComputeDistance(LocationIds& location_ids) -> int {
   auto& left_ids = location_ids.left_ids;
   auto& right_ids = location_ids.right_ids;
 
@@ -39,4 +39,3 @@ auto main(int argc, char* argv[]) -> int {
   auto location_ids = ParseInputFile(argv[1]);
   std::cout << ComputeDistance(location_ids) << "\n";
 }
-ComputeSimilarity
