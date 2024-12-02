@@ -4,7 +4,7 @@ set -e
 
 cp main.cpp main.cpp.backup
 
-find . -name '*.cpp' -not -path './build/*' -not -path './AdventOfCode2023/*' -mindepth 2 | while read -r file_path
+find . -name '*.cpp' -not -path './build/*' -not -path './AdventOfCode*' -mindepth 2 | while read -r file_path
 do
     printf "\n-------- Running tests for file %s --------\n" "$file_path"
     cp "$file_path" ./main.cpp
