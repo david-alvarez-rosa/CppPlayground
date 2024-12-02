@@ -16,12 +16,13 @@ class Report final {
 
     auto is_increasing = (levels_[1] - levels_[0]) > 0;
 
-    for (size_t i{1}; i < levels_.size(); ++i) {
-      auto delta = levels_[i] - levels_[i - 1];
-      if (delta > 0 != is_increasing || std::abs(delta) < 1 ||
-          std::abs(delta) > 3)
-        return false;
-    }
+    auto is_safe_pair = [&is_increasing](const auto left, const auto right) {
+      return is_increasing == right > left && std::abs(left - right) >= 1 &&
+             std::abs(left - right) <= 3;
+    };
+
+    for (size_t i{1}; i < levels_.size(); ++i)
+      if (!is_safe_pair(levels_[i - 1], levels_[i])) return false;
 
     return true;
   }
