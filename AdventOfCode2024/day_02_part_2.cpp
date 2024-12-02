@@ -13,7 +13,7 @@ class Report final {
   auto IsSafe() const noexcept -> bool {
     // Lazy fuck
 
-    for (size_t i{0}; i < levels_.size(); ++i) {
+    for (auto i{0U}; i < levels_.size(); ++i) {
       auto tmp_levels = levels_;
       tmp_levels.erase(tmp_levels.begin() + i);
       if (IsSafePure(tmp_levels)) {
@@ -38,7 +38,7 @@ class Report final {
              std::abs(left - right) <= 3;
     };
 
-    for (size_t i{1}; i < levels.size(); ++i) {
+    for (auto i{1U}; i < levels.size(); ++i) {
       if (!is_safe_pair(levels[i - 1], levels[i])) {
         return false;
       }
