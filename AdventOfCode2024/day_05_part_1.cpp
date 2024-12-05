@@ -17,9 +17,9 @@ auto IsValidUpdate(const Rules& rules, const Update& update) -> bool {
       continue;
     }
     const auto& curr_rules = rules.at(curr_page);
-    for (int j = 0; j < i; ++j) {
-      const auto next_page = update[j];
-      if (std::find(curr_rules.cbegin(), curr_rules.cend(), next_page) !=
+    for (auto j{0U}; j < i; ++j) {
+      const auto other_page = update[j];
+      if (std::find(curr_rules.cbegin(), curr_rules.cend(), other_page) !=
           curr_rules.end()) {
         return false;
       }
