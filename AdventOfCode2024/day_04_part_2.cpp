@@ -24,7 +24,6 @@ class GridWordCounter final {
   struct Pos {
     int row;
     int col;
-    Pos(int row, int col) : row{row}, col{col} {}
   };
 
   std::vector<std::vector<char>> grid_;
