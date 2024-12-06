@@ -81,34 +81,20 @@ class Map {
       {'v', {1, 0}},
       {'<', {0, -1}},
   };
+  std::unordered_map<char, char> turns_{
+      {'^', '>'},
+      {'>', 'v'},
+      {'v', '<'},
+      {'<', '^'},
+  };
 
   __attribute__((always_inline)) inline auto IsInsideMap(Pos pos) const noexcept
       -> bool {
     return pos.row < map_.size() && pos.col < map_[0].size();
   }
 
-  static inline auto Turn(char& cell) noexcept -> void {
-    switch (cell) {
-      case '^': {
-        cell = '>';
-        return;
-      }
-      case '>': {
-        cell = 'v';
-        return;
-      }
-      case 'v': {
-        cell = '<';
-        return;
-      }
-      case '<': {
-        cell = '^';
-        return;
-      }
-      default:
-        [[__unlikely__]] std::unreachable();
-        return;
-    }
+  __attribute__((always_inline)) inline auto Turn(char& cell) noexcept -> void {
+    cell = turns_.at(cell);
   }
 };
 
