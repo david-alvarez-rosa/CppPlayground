@@ -1,6 +1,8 @@
 #include <fstream>
 #include <iostream>
+#include <ostream>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -8,81 +10,53 @@ class Map {
  public:
   explicit Map(std::vector<std::vector<char>> map) : map_{std::move(map)} {}
 
-  using Pos = std::pair<int, int>;
+  struct Pos {
+    int row;
+    int col;
+    Pos(int row, int col) noexcept : row{row}, col{col} {}
+    auto inline operator+=(const Pos& other) noexcept -> Pos& {
+      row += other.row;
+      col += other.col;
+      return *this;
+    }
+    friend auto inline operator+(Pos lhs, const Pos& rhs) noexcept -> Pos;
+  };
 
-  auto GetGuardPosition() const noexcept -> Pos {
-    for (auto row{0U}; row < map_.size(); ++row) {
-      for (auto col{0U}; col < map_[0].size(); ++col) {
-        if ('^' == map_[row][col]) {
+  friend auto operator<<(std::ostream& os,
+                         const Map& map) noexcept -> std::ostream&;
+
+  [[__nodiscard__]] auto GetGuardPosition() const noexcept -> Pos {
+    for (auto row{0}; row < map_.size(); ++row) {
+      for (auto col{0}; col < map_[0].size(); ++col) {
+        if ('^' == map_[row][col]) [[__unlikely__]] {
           return {row, col};
         }
       }
     }
 
-    std::unreachable();
-
-    return {};
+    [[__unlikely__]] std::unreachable();
+    return {-1, -1};
   }
 
   auto CountGuardPositions() -> int {
-    auto [guard_row, guard_col] = GetGuardPosition();
+    auto guard_pos = GetGuardPosition();
 
-    while (IsInsideMap({guard_row, guard_col})) {
-      switch (map_[guard_row][guard_col]) {
-        case '^': {
-          if (guard_row - 1 >= 0 && '#' == map_[guard_row - 1][guard_col]) {
-            map_[guard_row][guard_col] = '>';
-          } else {
-            map_[guard_row][guard_col] = 'X';
-            --guard_row;
-            if (guard_row >= 0) {
-              map_[guard_row][guard_col] = '^';
-            }
-          }
-          break;
-        }
-        case 'v': {
-          if (guard_row + 1 < map_.size() &&
-              '#' == map_[guard_row + 1][guard_col]) {
-            map_[guard_row][guard_col] = '<';
-          } else {
-            map_[guard_row][guard_col] = 'X';
-            ++guard_row;
-            if (guard_row < map_.size()) {
-              map_[guard_row][guard_col] = 'v';
-            }
-          }
-          break;
-        }
-        case '<': {
-          if (guard_col - 1 >= 0 && '#' == map_[guard_row][guard_col - 1]) {
-            map_[guard_row][guard_col] = '^';
-          } else {
-            map_[guard_row][guard_col] = 'X';
-            --guard_col;
-            if (guard_col >= 0) {
-              map_[guard_row][guard_col] = '<';
-            }
-          }
-          break;
-        }
-        case '>': {
-          if (guard_col + 1 < map_[0].size() &&
-              '#' == map_[guard_row][guard_col + 1]) {
-            map_[guard_row][guard_col] = 'v';
-          } else {
-            map_[guard_row][guard_col] = 'X';
-            ++guard_col;
-            if (guard_col < map_[0].size()) {
-              map_[guard_row][guard_col] = '>';
-            }
-          }
-          break;
-        }
+    while (IsInsideMap(guard_pos)) {
+      auto& curr_cell = map_[guard_pos.row][guard_pos.col];
+      auto next_guard_pos = guard_pos + directions_.at(curr_cell);
 
-        default:
-          std::unreachable();
-          break;
+      if (!IsInsideMap(next_guard_pos)) [[__unlikely__]] {
+        curr_cell = 'X';
+        break;
+      }
+
+      auto& next_cell = map_[next_guard_pos.row][next_guard_pos.col];
+      if ('#' == next_cell) {
+        Turn(curr_cell);
+      } else [[__likely__]] {
+        guard_pos = next_guard_pos;
+        next_cell = curr_cell;
+        curr_cell = 'X';
       }
     }
 
@@ -100,11 +74,58 @@ class Map {
 
  private:
   std::vector<std::vector<char>> map_;
+  using Dir = Pos;
+  std::unordered_map<char, Dir> directions_{
+      {'^', {-1, 0}},
+      {'>', {0, 1}},
+      {'v', {1, 0}},
+      {'<', {0, -1}},
+  };
 
   __attribute__((always_inline)) inline auto IsInsideMap(Pos pos) const noexcept
       -> bool {
-    return pos.first < map_.size() && pos.second < map_[0].size();
+    return pos.row < map_.size() && pos.col < map_[0].size();
   }
+
+  static inline auto Turn(char& cell) noexcept -> void {
+    switch (cell) {
+      case '^': {
+        cell = '>';
+        return;
+      }
+      case '>': {
+        cell = 'v';
+        return;
+      }
+      case 'v': {
+        cell = '<';
+        return;
+      }
+      case '<': {
+        cell = '^';
+        return;
+      }
+      default:
+        [[__unlikely__]] std::unreachable();
+        return;
+    }
+  }
+};
+
+auto operator<<(std::ostream& os, const Map& map) noexcept -> std::ostream& {
+  for (const auto& row : map.map_) {
+    for (const auto cell : row) {
+      os << cell;
+    }
+    os << "\n";
+  }
+  return os;
+}
+
+[[nodiscard]] auto inline operator+(Map::Pos lhs,
+                                    const Map::Pos& rhs) noexcept -> Map::Pos {
+  lhs += rhs;
+  return lhs;
 };
 
 auto ParseInputFile(const std::string& file_name) -> Map {
