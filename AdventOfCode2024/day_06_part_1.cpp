@@ -168,7 +168,7 @@ auto main(int argc, char* argv[]) -> int {
     auto timer = Timer{iterations};
     for (auto i{0U}; i < iterations; ++i) {
       auto map_tmp = map;  // It's unfortunate, but map is not const
-      volatile auto ans = map_tmp.CountGuardPositions();  // 269 mics
+      volatile auto ans = map_tmp.CountGuardPositions();  // 269 mics with -03
       __asm__ volatile("" ::: "memory");
     }
   }
