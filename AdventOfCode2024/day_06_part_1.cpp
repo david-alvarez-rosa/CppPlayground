@@ -1,3 +1,4 @@
+#include <chrono>
 #include <fstream>
 #include <iostream>
 #include <ostream>
@@ -6,7 +7,7 @@
 #include <utility>
 #include <vector>
 
-class Map {
+class Map final {
  public:
   explicit Map(std::vector<std::vector<char>> map) : map_{std::move(map)} {}
 
@@ -22,8 +23,8 @@ class Map {
     friend auto inline operator+(Pos lhs, const Pos& rhs) noexcept -> Pos;
   };
 
-  friend auto operator<<(std::ostream& os,
-                         const Map& map) noexcept -> std::ostream&;
+  friend auto operator<<(std::ostream& /* out_stream */,
+                         const Map& /* map */) noexcept -> std::ostream&;
 
   [[__nodiscard__]] auto GetGuardPosition() const noexcept -> Pos {
     for (auto row{0}; row < map_.size(); ++row) {
@@ -93,19 +94,21 @@ class Map {
     return pos.row < map_.size() && pos.col < map_[0].size();
   }
 
-  __attribute__((always_inline)) inline auto Turn(char& cell) noexcept -> void {
+  __attribute__((always_inline)) inline auto Turn(char& cell) const noexcept
+      -> void {
     cell = turns_.at(cell);
   }
 };
 
-auto operator<<(std::ostream& os, const Map& map) noexcept -> std::ostream& {
+auto operator<<(std::ostream& out_stream,
+                const Map& map) noexcept -> std::ostream& {
   for (const auto& row : map.map_) {
     for (const auto cell : row) {
-      os << cell;
+      out_stream << cell;
     }
-    os << "\n";
+    out_stream << "\n";
   }
-  return os;
+  return out_stream;
 }
 
 [[nodiscard]] auto inline operator+(Map::Pos lhs,
@@ -126,7 +129,49 @@ auto ParseInputFile(const std::string& file_name) -> Map {
   return Map{raw_map};
 }
 
+class Timer final {
+ public:
+  explicit Timer(int iterations) noexcept
+      : iterations_{iterations},
+        start_time_{std::chrono::high_resolution_clock::now()} {}
+
+  // Rule of 5 - not intended to be copied / moved
+  Timer(const Timer& other) = delete;
+  Timer(Timer&& other) = delete;
+  auto operator=(const Timer& other) noexcept -> Timer& = delete;
+  auto operator=(Timer&& other) noexcept -> Timer& = delete;
+
+  ~Timer() noexcept {
+    auto end_time = std::chrono::high_resolution_clock::now();
+    auto elapsed_time = std::chrono::duration_cast<std::chrono::nanoseconds>(
+        end_time - start_time_);
+    std::cout << "Elapsed time: " << elapsed_time.count() / iterations_ << "\n";
+  }
+
+ private:
+  int iterations_;
+  std::chrono::time_point<std::chrono::high_resolution_clock>
+      start_time_;  // Must be last
+};
+
+// Redundant checks, because why not lol
+static_assert(!std::is_copy_constructible<Timer>::value);
+static_assert(!std::is_copy_assignable<Timer>::value);
+static_assert(!std::is_move_constructible<Timer>::value);
+static_assert(!std::is_move_assignable<Timer>::value);
+
 auto main(int argc, char* argv[]) -> int {
   auto map = ParseInputFile(argv[1]);
+
+  constexpr const static auto iterations{1000};
+  {
+    auto timer = Timer{iterations};
+    for (auto i{0U}; i < iterations; ++i) {
+      auto map_tmp = map;  // It's unfortunate, but map is not const
+      volatile auto ans = map_tmp.CountGuardPositions();  // 269 mics
+      __asm__ volatile("" ::: "memory");
+    }
+  }
+
   std::cout << map.CountGuardPositions() << "\n";
 }
