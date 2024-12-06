@@ -8,7 +8,7 @@
 #include <utility>
 #include <vector>
 
-class Map {
+class Map final {
  public:
   explicit Map(std::vector<std::vector<char>> map) : map_{std::move(map)} {}
 
@@ -31,8 +31,8 @@ class Map {
     }
   };
 
-  friend auto operator<<(std::ostream& out_stream,
-                         const Map& map) noexcept -> std::ostream&;
+  friend auto operator<<(std::ostream& /* out_stream */,
+                         const Map& /* map */) noexcept -> std::ostream&;
 
   [[__nodiscard__]] auto GetGuardPosition() const noexcept -> Pos {
     for (auto row{0}; row < map_.size(); ++row) {
@@ -52,7 +52,6 @@ class Map {
     auto guard_pos = GetGuardPosition();
 
     while (IsInsideMap(guard_pos)) {
-      // std::cout << *this << std::endl;
       count += static_cast<int>(CanBeObstructedToLoop(guard_pos));
 
       auto& curr_cell = map_[guard_pos.row][guard_pos.col];
@@ -124,8 +123,6 @@ class Map {
 
       if (visited.contains({guard_pos, curr_cell})) {
         if (!obstructions_.contains(obstruction_pos)) {
-          std::cout << obstruction_pos.row << ' ' << obstruction_pos.col
-                    << std::endl;
           obstructions_.insert(obstruction_pos);
           return true;
         }
@@ -182,15 +179,21 @@ auto ParseInputFile(const std::string& file_name) -> Map {
 
 class Timer final {
  public:
-  explicit Timer(int iterations)
+  explicit Timer(int iterations) noexcept
       : iterations_{iterations},
         start_time_{std::chrono::high_resolution_clock::now()} {}
 
-  ~Timer() {
+  // Rule of 5 - not intended to be copied / moved
+  Timer(const Timer& other) = delete;
+  Timer(Timer&& other) = delete;
+  auto operator=(const Timer& other) noexcept -> Timer& = delete;
+  auto operator=(Timer&& other) noexcept -> Timer& = delete;
+
+  ~Timer() noexcept {
     auto end_time = std::chrono::high_resolution_clock::now();
     auto elapsed_time = std::chrono::duration_cast<std::chrono::nanoseconds>(
         end_time - start_time_);
-    std::cout << "Elapsed time:" << elapsed_time.count() / iterations_ << "\n";
+    std::cout << "Elapsed time: " << elapsed_time.count() / iterations_ << "\n";
   }
 
  private:
@@ -199,14 +202,21 @@ class Timer final {
       start_time_;  // Must be last
 };
 
+// Redundant checks, because why not lol
+static_assert(!std::is_copy_constructible<Timer>::value);
+static_assert(!std::is_copy_assignable<Timer>::value);
+static_assert(!std::is_move_constructible<Timer>::value);
+static_assert(!std::is_move_assignable<Timer>::value);
+
 auto main(int argc, char* argv[]) -> int {
   auto map = ParseInputFile(argv[1]);
 
-  constexpr const static auto iterations{1000};
+  constexpr const static auto iterations{1};
   {
     auto timer = Timer{iterations};
     for (auto i{0U}; i < iterations; ++i) {
-      volatile auto ans = map.CountLoopObstructions();  // 20 mics :(
+      auto map_tmp = map;  // It's unfortunate, but map is not const
+      volatile auto ans = map_tmp.CountLoopObstructions();
       __asm__ volatile("" ::: "memory");
     }
   }
