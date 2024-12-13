@@ -32,7 +32,6 @@ class Arcade {
 
        Solving by Cramer's rule https://en.wikipedia.org/wiki/Cramer%27s_rule
 
-
          x = (c1*b2 - b1*c2) / det
          y = (a1 * c2 - c1*a2) / det
 
