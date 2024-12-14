@@ -18,19 +18,10 @@ class BathroomSecurity final {
 
   auto Step() noexcept -> void {
     for (auto& robot : robots_) {
-      robot.pos_x += robot.v_x;
-      robot.pos_y += robot.v_y;
-
-      if (robot.pos_x >= width) {
-        robot.pos_x -= width;
-      } else if (robot.pos_x < 0) {
-        robot.pos_x += width;
-      }
-      if (robot.pos_y >= heigth) {
-        robot.pos_y -= heigth;
-      } else if (robot.pos_y < 0) {
-        robot.pos_y += heigth;
-      }
+      robot.pos_x += robot.v_x + width;  // Hack - force possitive (modular)
+      robot.pos_x %= width;
+      robot.pos_y += robot.v_y + heigth;
+      robot.pos_y %= heigth;
     }
   }
 
