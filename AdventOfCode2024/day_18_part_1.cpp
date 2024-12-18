@@ -16,14 +16,6 @@ struct Vector2D {
     col += other.col;
     return *this;
   }
-  auto inline RotateClockwise() noexcept -> void {
-    std::swap(row, col);
-    col *= -1;
-  }
-  auto inline RotateCounterClockwise() noexcept -> void {
-    std::swap(row, col);
-    row *= -1;
-  }
   auto inline operator==(const Vector2D& other) const noexcept -> bool {
     return row == other.row && col == other.col;
   }
