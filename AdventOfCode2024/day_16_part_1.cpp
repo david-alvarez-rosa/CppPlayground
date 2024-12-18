@@ -60,12 +60,22 @@ class Maze final {
     auto visited = std::unordered_set<Node, NodeHash>{};
     auto scores = std::unordered_map<Node, int, NodeHash>{};
     auto nodes = std::queue<Node>{};
+    auto check_neighbour = [&nodes, &visited, &scores, this](
+                               const Pos& pos, const Dir& dir,
+                               int score) -> void {
+      auto node = Node{pos, dir};
+      if (IsInsideMaze(pos) && !IsWall(pos) &&
+          (!visited.contains(node) || scores[node] > score)) {
+        visited.insert(node);
+        scores[node] = score;
+        nodes.push(node);
+      }
+    };
     auto start_node = Node{start_pos, {0, 1}};
     nodes.emplace(start_node);
     visited.insert(start_node);
     scores[start_node] = 0;
     while (!nodes.empty()) {
-      // printStack(nodes);
       auto node = nodes.front();
       auto [pos, dir] = node;
       auto score = scores[node];
@@ -74,46 +84,19 @@ class Maze final {
         lowest_score = std::min(lowest_score, score);
         continue;
       }
-      {
-        // 1. No rotation
-        auto next_pos = pos + dir;
-        auto next_node = Node{next_pos, dir};
-        auto next_score = score + 1;
-        if (IsInsideMaze(next_pos) && !IsWall(next_pos) &&
-            !(visited.contains(next_node) && scores[next_node] <= next_score)) {
-          visited.insert(next_node);
-          scores[next_node] = next_score;
-          nodes.push(next_node);
-        }
-      }
-      {
-        // 2. Clockwise rotation
-        auto next_dir = dir;
-        next_dir.RotateClockwise();
-        auto next_pos = pos + next_dir;
-        auto next_node = Node{next_pos, next_dir};
-        auto next_score = score + 1001;
-        if (IsInsideMaze(next_pos) && !IsWall(next_pos) &&
-            !(visited.contains(next_node) && scores[next_node] <= next_score)) {
-          visited.insert(next_node);
-          scores[next_node] = next_score;
-          nodes.push(next_node);
-        }
-      }
-      {
-        // 3. Counter-clockwise rotation
-        auto next_dir = dir;
-        next_dir.RotateCounterClockwise();
-        auto next_pos = pos + next_dir;
-        auto next_node = Node{next_pos, next_dir};
-        auto next_score = score + 1001;
-        if (IsInsideMaze(next_pos) && !IsWall(next_pos) &&
-            !(visited.contains(next_node) && scores[next_node] <= next_score)) {
-          visited.insert(next_node);
-          scores[next_node] = next_score;
-          nodes.push(next_node);
-        }
-      }
+
+      // 1. No rotation
+      check_neighbour(pos + dir, dir, score + 1);
+
+      // 2. Clockwise rotation
+      auto next_dir = dir;
+      next_dir.RotateClockwise();
+      check_neighbour(pos + next_dir, next_dir, score + 1001);
+
+      // 3. Counter-clockwise rotation
+      next_dir = dir;
+      next_dir.RotateCounterClockwise();
+      check_neighbour(pos + next_dir, next_dir, score + 1001);
     }
 
     return lowest_score;
