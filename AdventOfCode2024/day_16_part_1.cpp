@@ -2,7 +2,6 @@
 #include <fstream>
 #include <iostream>
 #include <queue>
-#include <stack>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -75,7 +74,7 @@ class Maze final {
     nodes.emplace(start_node);
     visited.insert(start_node);
     scores[start_node] = 0;
-    while (!nodes.empty()) {
+    while (!nodes.empty()) {  // Dijkstra
       auto node = nodes.front();
       auto [pos, dir] = node;
       auto score = scores[node];
