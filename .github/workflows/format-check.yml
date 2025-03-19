@@ -17,4 +17,4 @@ jobs:
       run: find . -name '*.cpp' -not -path './build/*' | xargs -n1 clang-format -i
 
     - name: Check if something changed
-      run: git diff-index --quiet HEAD || exit 1
+      run: git diff-index HEAD || exit 1
