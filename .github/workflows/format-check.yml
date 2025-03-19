@@ -14,7 +14,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: clang-format files
-      run: find . -name '*.cpp' -not -path './build/*' | xargs -n1 clang-format -i
+      run: find . \( -name '*.cpp' -o -name '*.hpp' \) -not -path './build/*' | xargs clang-format -i
 
     - name: Check if something changed
       run: git diff-index HEAD || exit 1
