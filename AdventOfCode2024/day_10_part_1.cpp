@@ -8,8 +8,9 @@
 struct Pos {
   int row;
   int col;
-  friend auto __attribute__((always_inline)) inline operator+(
-      Pos lhs, Pos rhs) noexcept -> Pos;
+  friend auto __attribute__((always_inline)) inline operator+(Pos lhs,
+                                                              Pos rhs) noexcept
+      -> Pos;
   auto __attribute__((always_inline)) inline operator==(
       Pos other) const noexcept -> bool {
     return row == other.row && col == other.col;

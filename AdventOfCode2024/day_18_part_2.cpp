@@ -28,8 +28,8 @@ struct Vector2D {
   friend auto inline operator+(Vector2D lhs, Vector2D rhs) noexcept -> Vector2D;
 };
 
-[[nodiscard]] auto inline operator+(Vector2D lhs,
-                                    Vector2D rhs) noexcept -> Vector2D {
+[[nodiscard]] auto inline operator+(Vector2D lhs, Vector2D rhs) noexcept
+    -> Vector2D {
   lhs += rhs;
   return lhs;
 };

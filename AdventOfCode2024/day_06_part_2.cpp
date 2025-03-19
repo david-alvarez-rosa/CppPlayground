@@ -148,8 +148,8 @@ class Map final {
   }
 };
 
-auto operator<<(std::ostream& out_stream,
-                const Map& map) noexcept -> std::ostream& {
+auto operator<<(std::ostream& out_stream, const Map& map) noexcept
+    -> std::ostream& {
   for (const auto& row : map.map_) {
     for (const auto cell : row) {
       out_stream << cell;
@@ -159,8 +159,8 @@ auto operator<<(std::ostream& out_stream,
   return out_stream;
 }
 
-[[nodiscard]] auto inline operator+(Map::Pos lhs,
-                                    const Map::Pos& rhs) noexcept -> Map::Pos {
+[[nodiscard]] auto inline operator+(Map::Pos lhs, const Map::Pos& rhs) noexcept
+    -> Map::Pos {
   lhs += rhs;
   return lhs;
 };

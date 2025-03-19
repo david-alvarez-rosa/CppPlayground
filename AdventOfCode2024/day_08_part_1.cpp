@@ -9,10 +9,12 @@ using AntennaMap = std::vector<std::vector<char>>;
 struct Pos {
   int row;
   int col;
-  friend auto __attribute__((always_inline)) inline operator+(
-      Pos lhs, Pos rhs) noexcept -> Pos;
-  friend auto __attribute__((always_inline)) inline operator-(
-      Pos lhs, Pos rhs) noexcept -> Pos;
+  friend auto __attribute__((always_inline)) inline operator+(Pos lhs,
+                                                              Pos rhs) noexcept
+      -> Pos;
+  friend auto __attribute__((always_inline)) inline operator-(Pos lhs,
+                                                              Pos rhs) noexcept
+      -> Pos;
   friend auto __attribute__((always_inline)) inline operator<<(
       std::ostream& /* out_stream */, Pos /* pos */) noexcept -> std::ostream&;
 };
@@ -27,8 +29,9 @@ struct Pos {
   return {.row = lhs.row - rhs.row, .col = lhs.col - rhs.col};
 };
 
-auto __attribute__((always_inline)) inline operator<<(
-    std::ostream& out_stream, Pos pos) noexcept -> std::ostream& {
+auto __attribute__((always_inline)) inline operator<<(std::ostream& out_stream,
+                                                      Pos pos) noexcept
+    -> std::ostream& {
   return out_stream << pos.row << ',' << pos.col;
 }
 

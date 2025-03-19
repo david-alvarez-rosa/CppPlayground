@@ -19,7 +19,8 @@ class Arcade {
         button_b_delta_{button_b_delta},
         prize_pos_{prize_pos} {}
 
-  [[__nodiscard__]] auto MinimumTokens(Pos pos = {0, 0}) const noexcept -> int64_t {
+  [[__nodiscard__]] auto MinimumTokens(Pos pos = {0, 0}) const noexcept
+      -> int64_t {
     /* clang-format off
 
        Just solve equation (vectorial):

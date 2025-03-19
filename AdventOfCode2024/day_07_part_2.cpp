@@ -11,8 +11,8 @@ class CalibrationEquation final {
                                std::vector<int> operands) noexcept
       : total_{total}, operands_{std::move(operands)} {}
 
-  auto IsSolvable(size_t start = 0,
-                  int64_t curr_total = 0) const noexcept -> bool {
+  auto IsSolvable(size_t start = 0, int64_t curr_total = 0) const noexcept
+      -> bool {
     if (start == operands_.size()) [[__unlikely__]] {
       return curr_total == total_;
     }

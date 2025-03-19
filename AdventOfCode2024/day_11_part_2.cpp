@@ -19,8 +19,8 @@ __attribute__((always_inline)) inline auto SplitNumber(int64_t num)
   return {std::stoi(left), std::stoi(right)};
 }
 
-auto NumberOfStones(const std::vector<int64_t>& stones,
-                    int iterations) -> int64_t {
+auto NumberOfStones(const std::vector<int64_t>& stones, int iterations)
+    -> int64_t {
   auto stone_fqs = std::unordered_map<int64_t, int64_t>{};  // (stone, fq)
 
   for (auto stone : stones) {
