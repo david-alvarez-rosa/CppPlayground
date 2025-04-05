@@ -16,8 +16,8 @@ jobs:
     - name: Update platform
       run: sudo apt-get update
 
-    - name: Install GoogleTest libraries
-      run: sudo apt-get install libgmock-dev libgtest-dev libbenchmark-dev
+    - name: Install dependencies
+      run: sudo apt-get install libgmock-dev libgtest-dev libbenchmark-dev clang
 
     - name: Run tests
       run: ${{github.workspace}}/run-tests.sh || exit 1

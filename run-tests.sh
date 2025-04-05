@@ -3,6 +3,9 @@
 set -e
 
 cp main.cpp main.cpp.backup
+
+export CC=clang
+export CXX=clang++
 cmake -S . -B build -G Ninja
 
 find . -name '*.cpp' -path './Leetcode/*' | while read -r file_path
