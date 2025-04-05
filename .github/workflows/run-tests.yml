@@ -17,7 +17,7 @@ jobs:
       run: sudo apt-get update
 
     - name: Install dependencies
-      run: sudo apt-get install libgmock-dev libgtest-dev libbenchmark-dev clang
+      run: sudo apt-get install libgmock-dev libgtest-dev libbenchmark-dev llvm clang
 
     - name: Run tests
       run: ${{github.workspace}}/run-tests.sh || exit 1
