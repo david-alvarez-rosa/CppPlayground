@@ -12,8 +12,10 @@ target_compile_options(
           -Wall
           -Wpedantic
           -Wextra
+          -Wuninitialized
+          -Wunused
+          -Wshadow
           -Wconversion
-          -Werror
           -fsanitize=address
           -fsanitize=undefined)
 target_link_options(main PRIVATE -fsanitize=address -fsanitize=undefined)
@@ -28,3 +30,22 @@ add_executable(benchmark "benchmark.cpp")
 find_package(benchmark REQUIRED)
 target_compile_options(benchmark PRIVATE -O3)
 target_link_libraries(benchmark PRIVATE benchmark::benchmark_main)
+
+add_executable(assembly "assembly.cpp")
+target_compile_options(
+  assembly
+  PRIVATE -save-temps
+          -masm=intel
+          -fverbose-asm
+          -g0
+          -O0
+          -fno-asynchronous-unwind-tables
+          -fno-ident
+          -fno-addrsig
+          -fno-exceptions
+          -fno-rtti)
+add_custom_command(
+  TARGET assembly
+  POST_BUILD
+  COMMAND llvm-cxxfilt < ${CMAKE_BINARY_DIR}/assembly.s >
+          ${CMAKE_BINARY_DIR}/assembly_demangled.s)
