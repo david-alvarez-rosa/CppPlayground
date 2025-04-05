@@ -8,7 +8,7 @@ export CC=clang
 export CXX=clang++
 cmake -S . -B build -G Ninja
 
-git diff --name-only HEAD~10 HEAD | grep -E 'Leetcode/.*cpp' | while read -r file_path
+git diff --name-only HEAD~9 HEAD | grep -E 'Leetcode/.*cpp' | while read -r file_path
 do
     printf "\n-------- Running tests for file %s --------\n" "$file_path"
     cp "$file_path" ./leetcode.cpp
