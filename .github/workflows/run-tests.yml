@@ -12,7 +12,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-      fetch-depth: 10
+      with:
+        fetch-depth: 10
 
     - name: Update platform
       run: sudo apt-get update
