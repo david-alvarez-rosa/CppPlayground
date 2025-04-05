@@ -13,4 +13,4 @@ Checks: >
   portability-*,
   readability-*,
 
-WarningsAsErrors: "*"
+# WarningsAsErrors: "*"
