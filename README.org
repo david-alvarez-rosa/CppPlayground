@@ -1,8 +1,47 @@
 * C++ Playground
 This repository will be used as a playground for C++.
 
+** Generic
+Instructions for generic usage with ~main.cpp~ file.
+
+*** Usage
+**** Setup
+Only setup required is for CMake (just needed once)
+#+begin_src shell
+  cmake -S . -B build -G Ninja
+#+end_src
+
+**** Build & Run
+Write your solution for the Leetcode problem, build and run
+#+begin_src shell
+  cmake --build build  # build
+  ./build/main  # run
+#+end_src
+
+which can be combined
+#+begin_src shell
+  cmake --build build && ./build/main
+#+end_src
+
+**** Debug
+Problem can be debugged with GDB or LLDB
+#+begin_src shell
+  lldb ./build/main
+  gdb ./build/main
+#+end_src
+
+*** Example
+Hello world example.
+#+begin_src c++
+  #include <iostream>
+
+  int main() {
+    std::cout << "Hello, world!\n";
+  }
+#+end_src
+
 ** Leetcode Problems
-Instructions for solving Leetcode problems.
+Instructions for solving Leetcode problems with ~leetcode.cpp~ file.
 
 *** Usage
 **** Pre-requisite
@@ -13,62 +52,56 @@ Install GoogleTest C++ testing framework on your machine:
   brew install googletest  # MacOS
 #+end_src
 
-Also, make sure that the ~bits/stdc++.h~ header is present on your
-machine.  If not, you can download and install it manually.  See for
-example how to do it in MacOS:
-#+begin_src shell
-  sudo cp -r bits /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/
-#+end_src
-
 **** Setup
 Only setup required is for CMake (just needed once)
 #+begin_src shell
-  cmake -DCMAKE_BUILD_TYPE=Debug -B build
+  cmake -S . -B build -G Ninja
 #+end_src
 
-**** Usage
+**** Build & Run
 Write your solution for the Leetcode problem, build and run
 #+begin_src shell
   cmake --build build  # build
-  ./build/cpp_leetcode  # run
+  ./build/leetcode  # run
 #+end_src
 
 which can be combined
 #+begin_src shell
-  cmake --build build && ./build/cpp_leetcode
+  cmake --build build && ./build/leetcode
 #+end_src
 
 For running a specific tests, the following commands are useful
 #+begin_src shell
-  ./build/cpp_leetcode --help
-  ./build/cpp_leetcode --gtest_list_tests
-  ./build/cpp_leetcode --gtest_filter='*.<matcher>'
+  ./build/leetcode --help
+  ./build/leetcode --gtest_list_tests
+  ./build/leetcode --gtest_filter='*.<matcher>'
 #+end_src
 
 **** Debug
 Problem can be debugged with GDB or LLDB
 #+begin_src shell
-  lldb ./build/cpp_leetcode
-  gdb ./build/cpp_leetcode
+  lldb ./build/leetcode
+  gdb ./build/leetcode
 #+end_src
 
-**** Example
+*** Example
 Solution for Leetcode 1 problem ~twoSum~.
 #+begin_src c++
-  #include <bits/stdc++.h>
   #include <gmock/gmock.h>
   #include <gtest/gtest.h>
 
-  using namespace std;
-  using namespace testing;
+  #include <unordered_map>
+  #include <vector>
 
   class Solution {
    public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-      unordered_map<int, int> mp;  // (nums[i], i)
+    std::vector<int> twoSum(std::vector<int>& nums, int target) {
+      std::unordered_map<int, int> mp;  // (nums[i], i)
       for (int i{0}; i < nums.size(); i++) {
         const auto complement = target - nums[i];
-        if (mp.contains(complement)) return {i, mp[complement]};
+        if (mp.contains(complement)) {
+          return {i, mp[complement]};
+        }
         mp[nums[i]] = i;
       }
       return {0, 0};
@@ -77,21 +110,165 @@ Solution for Leetcode 1 problem ~twoSum~.
 
   TEST(SolutionTest, Test1) {
     Solution solution;
-    vector<int> nums{2, 7, 11, 15};
-    EXPECT_THAT(solution.twoSum(nums, 9), UnorderedElementsAre(0, 1));
+    std::vector<int> nums{2, 7, 11, 15};
+    EXPECT_THAT(solution.twoSum(nums, 9), testing::UnorderedElementsAre(0, 1));
   }
 
   TEST(SolutionTest, Test2) {
     Solution solution;
-    vector<int> nums{3, 2, 4};
-    EXPECT_THAT(solution.twoSum(nums, 6), UnorderedElementsAre(1, 2));
+    std::vector<int> nums{3, 2, 4};
+    EXPECT_THAT(solution.twoSum(nums, 6), testing::UnorderedElementsAre(1, 2));
   }
 
   TEST(SolutionTest, Test3) {
     Solution solution;
-    vector<int> nums{3, 3};
-    EXPECT_THAT(solution.twoSum(nums, 6), UnorderedElementsAre(0, 1));
+    std::vector<int> nums{3, 3};
+    EXPECT_THAT(solution.twoSum(nums, 6), testing::UnorderedElementsAre(0, 1));
   }
+#+end_src
+
+** Benchmark
+Instructions for benchmarking with ~benchmark.cpp~ file.
+
+*** Usage
+**** Pre-requisite
+Install GoogleBenchmark C++ benchmarking framework on your machine:
+#+begin_src shell
+  pacman -S benchmark  # Arch Linux
+  apt-get install libbenchmark-dev   # Debian-based
+  brew install google-benchmark  # MacOS
+#+end_src
+
+**** Setup
+Only setup required is for CMake (just needed once)
+#+begin_src shell
+  cmake -S . -B build -G Ninja
+#+end_src
+
+**** Build & Run
+Write your solution for the Leetcode problem, build and run
+#+begin_src shell
+  cmake --build build  # build
+  ./build/benchmark  # run
+#+end_src
+
+which can be combined
+#+begin_src shell
+  cmake --build build && ./build/benchmark
+#+end_src
+
+**** Debug
+Problem can be debugged with GDB or LLDB
+#+begin_src shell
+  lldb ./build/leetcode
+  gdb ./build/leetcode
+#+end_src
+
+*** Example
+Basic example from https://quick-bench.com/
+#+begin_src c++
+  #include <benchmark/benchmark.h>
+
+  static void StringCreation(benchmark::State& state) {
+    // Code inside this loop is measured repeatedly
+    for (auto _ : state) {
+      std::string created_string("hello");
+      // Make sure the variable is not optimized away by compiler
+      benchmark::DoNotOptimize(created_string);
+    }
+  }
+  // Register the function as a benchmark
+  BENCHMARK(StringCreation);
+
+  static void StringCopy(benchmark::State& state) {
+    // Code before the loop is not measured
+    std::string x = "hello";
+    for (auto _ : state) {
+      std::string copy(x);
+    }
+  }
+  BENCHMARK(StringCopy);
+#+end_src
+
+That generates the following output
+#+begin_src text
+  Running build/benchmark
+  Run on (14 X 4400 MHz CPU s)
+  CPU Caches:
+    L1 Data 48 KiB (x7)
+    L1 Instruction 64 KiB (x7)
+    L2 Unified 2048 KiB (x7)
+    L3 Unified 12288 KiB (x1)
+  Load Average: 0.45, 0.42, 0.63
+
+  ---------------------------------------------------------
+  Benchmark               Time             CPU   Iterations
+  ---------------------------------------------------------
+  StringCreation      0.928 ns        0.927 ns    732871876
+  StringCopy           1.40 ns         1.39 ns    514611020
+#+end_src
+
+** Benchmark
+Instructions for generating assembly with ~assembly.cpp~ file.
+
+*** Usage
+**** Setup
+Only setup required is for CMake (just needed once)
+#+begin_src shell
+  cmake -S . -B build -G Ninja
+#+end_src
+
+**** Build & Run
+Write your solution for the Leetcode problem, build and run
+#+begin_src shell
+  cmake --build build  # build
+  ./build/assembly  # run
+#+end_src
+
+which can be combined
+#+begin_src shell
+  cmake --build build && ./build/assembly
+#+end_src
+
+*** Example
+Basic example from https://quick-bench.com/
+#+begin_src c++
+  int add(int a, int b) {
+    return a + b;
+  }
+
+  int main() {
+    auto result  = add(3, 5);
+  }
+#+end_src
+
+Which generates a file in ~build/assembly_demangled.s~ with the
+following content
+#+begin_src asm
+  add(int, int):                               # @add(int, int)
+  # %bb.0:
+  	push	rbp
+  	mov	rbp, rsp
+  	mov	dword ptr [rbp - 4], edi
+  	mov	dword ptr [rbp - 8], esi
+  	mov	eax, dword ptr [rbp - 4]
+  	add	eax, dword ptr [rbp - 8]
+  	pop	rbp
+  	ret
+
+  main:                                   # @main
+  # %bb.0:
+  	push	rbp
+  	mov	rbp, rsp
+  	sub	rsp, 16
+  	mov	edi, 3
+  	mov	esi, 5
+  	call	add(int, int)
+  	mov	dword ptr [rbp - 4], eax
+  	xor	eax, eax
+  	add	rsp, 16
+  	pop	rbp
+  	ret
 #+end_src
 
 ** Contributions
