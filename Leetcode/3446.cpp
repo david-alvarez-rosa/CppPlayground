@@ -22,8 +22,7 @@ class Solution {
 
     for (auto row = 0ZU; row < n; ++row) {
       for (auto col = 0ZU; col < n; ++col) {
-        auto diag_id = get_diag_id(row, col);
-        if (is_bottom(row, col)) {
+        if (auto diag_id = get_diag_id(row, col); is_bottom(row, col)) {
           bottom_diags[diag_id].emplace_back(grid[row][col]);
         } else {
           top_diags[diag_id].emplace_back(grid[row][col]);
