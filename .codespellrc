@@ -1,4 +1,0 @@
-[codespell]
-builtin = clear,rare,en-GB_to_en-US,names,informal,code
-skip = */.git,*/build
-ignore-words-list = stoll
