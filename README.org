@@ -8,10 +8,10 @@ A sandbox environment for C++ experimentation:
 ** Run
 Edit ~main.cpp~ file
 #+begin_src sh
-  $ cmake -B build -G Ninja # configure
-  $ cmake --build build     # build
-  $ ./build/main            # run
-  $ lldb ./build/main       # debug
+  $ cmake -B build -G Ninja  # Configure
+  $ cmake --build build  # Build
+  $ ./build/main  # Run
+  $ lldb ./build/main  # Debug
 #+end_src
 
 ** Test
@@ -24,10 +24,10 @@ Install GoogleTest
 
 Edit ~test.cpp~ file
 #+begin_src sh
-  $ cmake -B build -G Ninja # configure
-  $ cmake --build build     # build
-  $ ./build/test            # run
-  $ lldb ./build/test       # debug
+  $ cmake -B build -G Ninja  # Configure
+  $ cmake --build build  # Build
+  $ ./build/test  # Run
+  $ lldb ./build/test  # Debug
 #+end_src
 
 For running a specific tests, the following commands are useful
@@ -86,10 +86,10 @@ Install GoogleBenchmark C++ benchmarking framework on your machine:
 
 Edit ~benchmark.cpp~ file
 #+begin_src sh
-  $ cmake -B build -G Ninja # configure
-  $ cmake --build build     # build
-  $ ./build/benchmark       # run
-  $ lldb ./build/benchmark  # debug
+  $ cmake -B build -G Ninja  # Configure
+  $ cmake --build build  # Build
+  $ ./build/benchmark  # Run
+  $ lldb ./build/benchmark  # Debug
 #+end_src
 
 Example from https://quick-bench.com/
@@ -135,10 +135,10 @@ That generates the following output
 ** Assembly
 Edit ~assembly.cpp~ file
 #+begin_src sh
-  $ cmake -B build -G Ninja # configure
-  $ cmake --build build     # build
-  $ ./build/assembly        # run
-  $ lldb ./build/assembly   # debug
+  $ cmake -B build -G Ninja  # Configure
+  $ cmake --build build  # Build
+  $ ./build/assembly  # Run
+  $ lldb ./build/assembly  # Debug
 #+end_src
 
 Example
