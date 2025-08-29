@@ -14,8 +14,11 @@ target_compile_options(
           -Wextra
           -Wuninitialized
           -Wunused
+          -Wunused-parameter
           -Wshadow
           -Wconversion
+          -Wsign-conversion
+          -Werror
           -fsanitize=address
           -fsanitize=undefined)
 target_link_options(main PRIVATE -fsanitize=address -fsanitize=undefined)
@@ -27,6 +30,22 @@ enable_testing()
 gtest_discover_tests(leetcode)
 
 add_executable(benchmark "benchmark.cpp")
+target_compile_options(
+  main
+  PRIVATE -g
+          -Wall
+          -Wpedantic
+          -Wextra
+          -Wuninitialized
+          -Wunused
+          -Wunused-parameter
+          -Wshadow
+          -Wconversion
+          -Wsign-conversion
+          -Werror
+          -fsanitize=address
+          -fsanitize=undefined)
+target_link_options(main PRIVATE -fsanitize=address -fsanitize=undefined)
 find_package(benchmark REQUIRED)
 target_compile_options(benchmark PRIVATE -O3)
 target_link_libraries(benchmark PRIVATE benchmark::benchmark_main)

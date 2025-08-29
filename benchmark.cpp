@@ -1,6 +1,6 @@
 #include <benchmark/benchmark.h>
 
-static void bench(benchmark::State& state) {
+static auto bench(benchmark::State& state) -> void {
   for (auto _ : state) {
   }
 }
