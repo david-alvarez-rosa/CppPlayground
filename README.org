@@ -16,14 +16,14 @@ Edit ~main.cpp~ file
 
 ** Test
 Install GoogleTest
-#+begin_src sh
+#+begin_src text
   # pacman -S gtest  # Arch Linux
   # apt-get install libgmock-dev libgtest-dev  # Debian-based
   $ brew install googletest  # MacOS
 #+end_src
 
 Edit ~test.cpp~ file
-#+begin_src sh
+#+begin_src text
   $ cmake -B build -G Ninja # configure
   $ cmake --build build     # build
   $ ./build/test            # run
@@ -31,7 +31,7 @@ Edit ~test.cpp~ file
 #+end_src
 
 For running a specific tests, the following commands are useful
-#+begin_src sh
+#+begin_src text
   $ ./build/test --gtest_list_tests
   $ ./build/test --gtest_filter='*.<matcher>'
 #+end_src
@@ -78,14 +78,14 @@ Example solution for Leetcode 1 problem ~twoSum~
 
 ** Benchmark
 Install GoogleBenchmark C++ benchmarking framework on your machine:
-#+begin_src sh
+#+begin_src text
   # pacman -S benchmark  # Arch Linux
   # apt-get install libbenchmark-dev   # Debian-based
   $ brew install google-benchmark  # MacOS
 #+end_src
 
 Edit ~benchmark.cpp~ file
-#+begin_src sh
+#+begin_src text
   $ cmake -B build -G Ninja # configure
   $ cmake --build build     # build
   $ ./build/benchmark       # run
@@ -134,7 +134,7 @@ That generates the following output
 
 ** Assembly
 Edit ~assembly.cpp~ file
-#+begin_src sh
+#+begin_src text
   $ cmake -B build -G Ninja # configure
   $ cmake --build build     # build
   $ ./build/assembly        # run
