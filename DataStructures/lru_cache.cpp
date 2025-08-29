@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <utility>
 
-template <typename Key, typename Value>
+template <typename Key, std::movable Value>
 class LruCache {
   using Node = std::pair<Key, Value>;
 
@@ -17,7 +17,7 @@ class LruCache {
   std::size_t capacity_;
 
  public:
-  explicit LruCache(std::size_t capacity) : capacity_{capacity} {}
+  explicit LruCache(std::size_t capacity) noexcept : capacity_{capacity} {}
 
   auto Push(const Key& key, Value value) noexcept -> void {
     Emplace(key, std::move(value));
