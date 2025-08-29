@@ -2,7 +2,7 @@
 
 set -e
 
-cp main.cpp main.cpp.backup
+cp test.cpp test.cpp.backup
 
 export CC=clang
 export CXX=clang++
@@ -17,4 +17,4 @@ do
     ./build/test && printf "Test succeeded :)\n\n" || exit 1
 done
 
-mv main.cpp.backup main.cpp
+mv test.cpp.backup test.cpp
