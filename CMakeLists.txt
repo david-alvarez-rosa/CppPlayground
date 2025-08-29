@@ -23,9 +23,9 @@ target_compile_options(
           -fsanitize=undefined)
 target_link_options(main PRIVATE -fsanitize=address -fsanitize=undefined)
 
-add_executable(leetcode "leetcode.cpp")
+add_executable(test "test.cpp")
 target_compile_options(
-  leetcode
+  test
   PRIVATE -g
           -Wall
           -Wpedantic
@@ -39,11 +39,10 @@ target_compile_options(
           -Werror
           -fsanitize=address
           -fsanitize=undefined)
-target_link_options(leetcode PRIVATE -fsanitize=address -fsanitize=undefined)
+target_link_options(test PRIVATE -fsanitize=address -fsanitize=undefined)
 find_package(GTest REQUIRED)
-target_link_libraries(leetcode GTest::gtest_main GTest::gmock)
-enable_testing()
-gtest_discover_tests(leetcode)
+target_link_libraries(test GTest::gtest_main GTest::gmock)
+gtest_discover_tests(test)
 
 add_executable(benchmark "benchmark.cpp")
 find_package(benchmark REQUIRED)

@@ -1,91 +1,42 @@
 * C++ Playground
-This repository will be used as a playground for C++.
+A sandbox environment for C++ experimentation:
+- *Run code* with ~main.cpp~
+- *Test code* with ~test.cpp~ using GoogleTest
+- *Benchmark code* with ~benchmark.cpp~ using GoogleBenchmark
+- *View assembly* with ~assembly.cpp~
 
 ** Generic
-Instructions for generic usage with ~main.cpp~ file.
-
-*** Usage
-**** Setup
-Only setup required is for CMake (just needed once)
+Edit ~main.cpp~
 #+begin_src shell
-  cmake -S . -B build -G Ninja
+  $ cmake -B build -G Ninja # configure
+  $ cmake --build build     # build
+  $ ./build/main            # run
+  $ lldb ./build/main       # debug
 #+end_src
 
-**** Build & Run
-Write your solution for the Leetcode problem, build and run
+** Test
+Install GoogleTest
 #+begin_src shell
-  cmake --build build  # build
-  ./build/main  # run
+  $ pacman -S gtest  # Arch Linux
+  $ apt-get install libgmock-dev libgtest-dev  # Debian-based
+  $ brew install googletest  # MacOS
 #+end_src
 
-which can be combined
+Edit ~test.cpp~
 #+begin_src shell
-  cmake --build build && ./build/main
-#+end_src
-
-**** Debug
-Problem can be debugged with GDB or LLDB
-#+begin_src shell
-  lldb ./build/main
-  gdb ./build/main
-#+end_src
-
-*** Example
-Hello world example.
-#+begin_src c++
-  #include <iostream>
-
-  int main() {
-    std::cout << "Hello, world!\n";
-  }
-#+end_src
-
-** Leetcode Problems
-Instructions for solving Leetcode problems with ~leetcode.cpp~ file.
-
-*** Usage
-**** Pre-requisite
-Install GoogleTest C++ testing framework on your machine:
-#+begin_src shell
-  pacman -S gtest  # Arch Linux
-  apt-get install libgmock-dev libgtest-dev  # Debian-based
-  brew install googletest  # MacOS
-#+end_src
-
-**** Setup
-Only setup required is for CMake (just needed once)
-#+begin_src shell
-  cmake -S . -B build -G Ninja
-#+end_src
-
-**** Build & Run
-Write your solution for the Leetcode problem, build and run
-#+begin_src shell
-  cmake --build build  # build
-  ./build/leetcode  # run
-#+end_src
-
-which can be combined
-#+begin_src shell
-  cmake --build build && ./build/leetcode
+  $ cmake -B build -G Ninja # configure
+  $ cmake --build build     # build
+  $ ./build/test            # run
+  $ lldb ./build/test       # debug
 #+end_src
 
 For running a specific tests, the following commands are useful
 #+begin_src shell
-  ./build/leetcode --help
-  ./build/leetcode --gtest_list_tests
-  ./build/leetcode --gtest_filter='*.<matcher>'
+  $ ./build/test --gtest_list_tests
+  $ ./build/test --gtest_filter='*.<matcher>'
 #+end_src
 
-**** Debug
-Problem can be debugged with GDB or LLDB
-#+begin_src shell
-  lldb ./build/leetcode
-  gdb ./build/leetcode
-#+end_src
-
-*** Example
-Solution for Leetcode 1 problem ~twoSum~.
+Example solution for Leetcode 1 problem ~twoSum~
 #+begin_src c++
   #include <gmock/gmock.h>
   #include <gtest/gtest.h>
@@ -95,96 +46,69 @@ Solution for Leetcode 1 problem ~twoSum~.
 
   class Solution {
    public:
-    std::vector<int> twoSum(std::vector<int>& nums, int target) {
+    [[nodiscard]] static auto twoSum(std::vector<int>& nums, int target)
+        -> std::vector<int> {
       std::unordered_map<int, int> mp;  // (nums[i], i)
-      for (int i{0}; i < nums.size(); i++) {
+      for (auto i = 0ZU, n = nums.size(); i < n; ++i) {
         const auto complement = target - nums[i];
         if (mp.contains(complement)) {
-          return {i, mp[complement]};
+          return {static_cast<int>(i), mp[complement]};
         }
-        mp[nums[i]] = i;
+        mp[nums[i]] = static_cast<int>(i);
       }
       return {0, 0};
     }
   };
 
   TEST(SolutionTest, Test1) {
-    Solution solution;
     std::vector<int> nums{2, 7, 11, 15};
-    EXPECT_THAT(solution.twoSum(nums, 9), testing::UnorderedElementsAre(0, 1));
+    EXPECT_THAT(Solution::twoSum(nums, 9), testing::UnorderedElementsAre(0, 1));
   }
 
   TEST(SolutionTest, Test2) {
-    Solution solution;
     std::vector<int> nums{3, 2, 4};
-    EXPECT_THAT(solution.twoSum(nums, 6), testing::UnorderedElementsAre(1, 2));
+    EXPECT_THAT(Solution::twoSum(nums, 6), testing::UnorderedElementsAre(1, 2));
   }
 
   TEST(SolutionTest, Test3) {
-    Solution solution;
     std::vector<int> nums{3, 3};
-    EXPECT_THAT(solution.twoSum(nums, 6), testing::UnorderedElementsAre(0, 1));
+    EXPECT_THAT(Solution::twoSum(nums, 6), testing::UnorderedElementsAre(0, 1));
   }
 #+end_src
 
 ** Benchmark
-Instructions for benchmarking with ~benchmark.cpp~ file.
-
-*** Usage
-**** Pre-requisite
 Install GoogleBenchmark C++ benchmarking framework on your machine:
 #+begin_src shell
-  pacman -S benchmark  # Arch Linux
-  apt-get install libbenchmark-dev   # Debian-based
-  brew install google-benchmark  # MacOS
+  $ pacman -S benchmark  # Arch Linux
+  $ apt-get install libbenchmark-dev   # Debian-based
+  $ brew install google-benchmark  # MacOS
 #+end_src
 
-**** Setup
-Only setup required is for CMake (just needed once)
+Edit ~benchmark.cpp~
 #+begin_src shell
-  cmake -S . -B build -G Ninja
+  $ cmake -B build -G Ninja # configure
+  $ cmake --build build     # build
+  $ ./build/benchmark       # run
+  $ lldb ./build/benchmark  # debug
 #+end_src
 
-**** Build & Run
-Write your solution for the Leetcode problem, build and run
-#+begin_src shell
-  cmake --build build  # build
-  ./build/benchmark  # run
-#+end_src
-
-which can be combined
-#+begin_src shell
-  cmake --build build && ./build/benchmark
-#+end_src
-
-**** Debug
-Problem can be debugged with GDB or LLDB
-#+begin_src shell
-  lldb ./build/leetcode
-  gdb ./build/leetcode
-#+end_src
-
-*** Example
-Basic example from https://quick-bench.com/
+Example from https://quick-bench.com/
 #+begin_src c++
   #include <benchmark/benchmark.h>
 
   static void StringCreation(benchmark::State& state) {
-    // Code inside this loop is measured repeatedly
     for (auto _ : state) {
-      std::string created_string("hello");
-      // Make sure the variable is not optimized away by compiler
-      benchmark::DoNotOptimize(created_string);
+      auto foo = std::string{"hello"};
+      benchmark::DoNotOptimize(foo);
     }
   }
-  // Register the function as a benchmark
   BENCHMARK(StringCreation);
 
   static void StringCopy(benchmark::State& state) {
-    // Code before the loop is not measured
-    std::string x = "hello";
+    auto foo = std::string{"hello"};
     for (auto _ : state) {
-      std::string copy(x);
+      auto bar = std::string{foo};
+      benchmark::DoNotOptimize(bar);
     }
   }
   BENCHMARK(StringCopy);
@@ -204,34 +128,20 @@ That generates the following output
   ---------------------------------------------------------
   Benchmark               Time             CPU   Iterations
   ---------------------------------------------------------
-  StringCreation      0.928 ns        0.927 ns    732871876
-  StringCopy           1.40 ns         1.39 ns    514611020
+  StringCreation      0.922 ns        0.921 ns    765882382
+  StringCopy           1.35 ns         1.35 ns    520319518
 #+end_src
 
-** Benchmark
-Instructions for generating assembly with ~assembly.cpp~ file.
-
-*** Usage
-**** Setup
-Only setup required is for CMake (just needed once)
+** Assembly
+Edit ~assembly.cpp~
 #+begin_src shell
-  cmake -S . -B build -G Ninja
+  $ cmake -B build -G Ninja # configure
+  $ cmake --build build     # build
+  $ ./build/assembly        # run
+  $ lldb ./build/assembly   # debug
 #+end_src
 
-**** Build & Run
-Write your solution for the Leetcode problem, build and run
-#+begin_src shell
-  cmake --build build  # build
-  ./build/assembly  # run
-#+end_src
-
-which can be combined
-#+begin_src shell
-  cmake --build build && ./build/assembly
-#+end_src
-
-*** Example
-Basic example from https://quick-bench.com/
+Example
 #+begin_src c++
   int add(int a, int b) {
     return a + b;
@@ -242,8 +152,7 @@ Basic example from https://quick-bench.com/
   }
 #+end_src
 
-Which generates a file in ~build/assembly_demangled.s~ with the
-following content
+Generates ~build/assembly_demangled.s~
 #+begin_src asm
   add(int, int):                               # @add(int, int)
   # %bb.0:
@@ -272,7 +181,4 @@ following content
 #+end_src
 
 ** Contributions
-Feel free to raise a PR for improvements / suggestions :)
-
-** Author
-David Álvarez Rosa
+Suggestions or improvements? Raise a pull request!
