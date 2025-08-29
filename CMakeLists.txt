@@ -67,3 +67,7 @@ add_custom_command(
   POST_BUILD
   COMMAND llvm-cxxfilt < ${CMAKE_BINARY_DIR}/assembly.s >
           ${CMAKE_BINARY_DIR}/assembly_demangled.s)
+add_custom_command(
+  TARGET assembly
+  POST_BUILD
+  COMMAND cat ${CMAKE_BINARY_DIR}/assembly_demangled.s)
