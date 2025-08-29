@@ -5,8 +5,8 @@ A sandbox environment for C++ experimentation:
 - *Benchmark code* with ~benchmark.cpp~ using GoogleBenchmark
 - *View assembly* with ~assembly.cpp~
 
-** Generic
-Edit ~main.cpp~
+** Run
+Edit ~main.cpp~ file
 #+begin_src shell
   $ cmake -B build -G Ninja # configure
   $ cmake --build build     # build
@@ -22,7 +22,7 @@ Install GoogleTest
   $ brew install googletest  # MacOS
 #+end_src
 
-Edit ~test.cpp~
+Edit ~test.cpp~ file
 #+begin_src shell
   $ cmake -B build -G Ninja # configure
   $ cmake --build build     # build
@@ -84,7 +84,7 @@ Install GoogleBenchmark C++ benchmarking framework on your machine:
   $ brew install google-benchmark  # MacOS
 #+end_src
 
-Edit ~benchmark.cpp~
+Edit ~benchmark.cpp~ file
 #+begin_src shell
   $ cmake -B build -G Ninja # configure
   $ cmake --build build     # build
@@ -133,7 +133,7 @@ That generates the following output
 #+end_src
 
 ** Assembly
-Edit ~assembly.cpp~
+Edit ~assembly.cpp~ file
 #+begin_src shell
   $ cmake -B build -G Ninja # configure
   $ cmake --build build     # build
