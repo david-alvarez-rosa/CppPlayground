@@ -8,8 +8,8 @@ using Sudoku = std::vector<std::vector<char>>;
 class Solution {
   static constexpr auto N = 9;
 
-  bool IsValid(const Sudoku& sudoku, std::size_t row, std::size_t col,
-               char cell) {
+  auto IsValid(const Sudoku& sudoku, std::size_t row, std::size_t col,
+               char cell) noexcept {
     for (auto i = 0ZU; i < N; ++i)
       if (sudoku[row][i] == cell || sudoku[i][col] == cell ||
           sudoku[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == cell)
