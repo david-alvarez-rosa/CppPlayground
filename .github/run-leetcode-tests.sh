@@ -3,10 +3,7 @@
 set -e
 
 cp test.cpp test.cpp.backup
-
-export CC=clang
-export CXX=clang++
-cmake -S . -B build -G Ninja
+CC=clang CXX=clang++ cmake -S . -B build -G Ninja
 
 git diff --name-only HEAD~9 HEAD | grep -E "Leetcode/.*cpp" | while read -r file_path
 do
