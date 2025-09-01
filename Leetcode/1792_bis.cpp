@@ -13,7 +13,7 @@ class Solution {
       return 0.0;
     }
 
-    auto& x = dp_[extraStudents][start];
+    auto& x = dp_[static_cast<std::size_t>(extraStudents)][start];
 
     if (x != -1) {  // add eps
       return x;
@@ -24,7 +24,7 @@ class Solution {
     for (auto i = 0; i <= extraStudents; ++i) {
       ans = std::max(ans, (static_cast<double>(classes_[start][0] + i) /
                            (classes_[start][1] + i)) /
-                                  n_ +
+                                  static_cast<double>(n_) +
                               f(extraStudents - i, start + 1));
     }
 
@@ -38,7 +38,7 @@ class Solution {
     classes_ = std::move(classes);
     n_ = classes.size();
     dp_ = std::vector<std::vector<double>>(
-        extraStudents + 1,
+        static_cast<std::size_t>(extraStudents) + 1,
         std::vector<double>(n_, -1.0));  // (extraStudents, start) -> memoize;
     return f(extraStudents, 0);
   }
