@@ -47,7 +47,8 @@ Example solution for Leetcode 1 problem ~twoSum~
   class Solution {
    public:
     [[nodiscard]]
-    static auto twoSum(std::vector<int>& nums, int target) -> std::vector<int> {
+    static auto twoSum(const std::vector<int>& nums, int target) noexcept
+        -> std::vector<int> {
       auto mp = std::unordered_map<int, int>{};  // (nums[i], i)
       for (auto i = 0ZU, n = nums.size(); i < n; ++i) {
         auto complement = target - nums[i];
