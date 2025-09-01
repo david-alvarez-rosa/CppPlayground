@@ -46,11 +46,11 @@ Example solution for Leetcode 1 problem ~twoSum~
 
   class Solution {
    public:
-    [[nodiscard]] static auto twoSum(std::vector<int>& nums, int target)
-        -> std::vector<int> {
+    [[nodiscard]]
+    static auto twoSum(std::vector<int>& nums, int target) -> std::vector<int> {
       auto mp = std::unordered_map<int, int>{};  // (nums[i], i)
       for (auto i = 0ZU, n = nums.size(); i < n; ++i) {
-        const auto complement = target - nums[i];
+        auto complement = target - nums[i];
         if (mp.contains(complement)) {
           return {static_cast<int>(i), mp[complement]};
         }
