@@ -18,7 +18,7 @@ class Solution {
       ans = std::max(
           ans, (static_cast<double>(classes[start][0] + i) /
                 (classes[start][1] + i)) /
-                       classes.size() +
+                       static_cast<double>(classes.size()) +
                    maxAverageRatio(classes, extraStudents - i, start + 1));
     }
 
