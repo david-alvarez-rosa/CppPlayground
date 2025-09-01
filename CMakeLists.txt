@@ -56,7 +56,7 @@ target_compile_options(
           -masm=intel
           -fverbose-asm
           -g0
-          -O0
+          -O2
           -fno-asynchronous-unwind-tables
           -fno-ident
           -fno-addrsig

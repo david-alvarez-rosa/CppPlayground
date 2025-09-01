@@ -8,7 +8,7 @@ A sandbox environment for C++ experimentation:
 ** Run
 Edit ~main.cpp~ file
 #+begin_src sh
-  $ cmake -B build -G Ninja  # Configure
+  $ cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug  # Configure
   $ cmake --build build  # Build
   $ ./build/main  # Run
   $ lldb ./build/main  # Debug
@@ -24,7 +24,7 @@ Install GoogleTest
 
 Edit ~test.cpp~ file
 #+begin_src sh
-  $ cmake -B build -G Ninja  # Configure
+  $ cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug  # Configure
   $ cmake --build build  # Build
   $ ./build/test  # Run
   $ lldb ./build/test  # Debug
@@ -86,7 +86,7 @@ Install GoogleBenchmark C++ benchmarking framework on your machine:
 
 Edit ~benchmark.cpp~ file
 #+begin_src sh
-  $ cmake -B build -G Ninja  # Configure
+  $ cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release  # Configure
   $ cmake --build build  # Build
   $ ./build/benchmark  # Run
   $ lldb ./build/benchmark  # Debug
@@ -135,7 +135,7 @@ That generates the following output
 ** Assembly
 Edit ~assembly.cpp~ file
 #+begin_src sh
-  $ cmake -B build -G Ninja  # Configure
+  $ cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release  # Configure
   $ cmake --build build  # Build
   $ ./build/assembly  # Run
   $ lldb ./build/assembly  # Debug
