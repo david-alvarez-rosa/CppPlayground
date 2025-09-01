@@ -34,7 +34,7 @@ class Solution {
                              return acc + static_cast<double>(single_class[0]) /
                                               single_class[1];
                            }) /
-           classes.size();
+           static_cast<double>(classes.size());
   }
 };
 
