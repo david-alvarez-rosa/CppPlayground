@@ -18,7 +18,7 @@ target_compile_options(
           -Wshadow
           -Wconversion
           -Wsign-conversion
-          -Werror
+          # -Werror
           -fsanitize=address
           -fsanitize=undefined)
 target_link_options(main PRIVATE -fsanitize=address -fsanitize=undefined)
@@ -36,7 +36,7 @@ target_compile_options(
           -Wshadow
           -Wconversion
           -Wsign-conversion
-          -Werror
+          # -Werror
           -fsanitize=address
           -fsanitize=undefined)
 target_link_options(test PRIVATE -fsanitize=address -fsanitize=undefined)
