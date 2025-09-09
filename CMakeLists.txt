@@ -17,11 +17,14 @@ target_compile_options(
           -Wunused-parameter
           -Wshadow
           -Wconversion
-          -Wsign-conversion
-          # -Werror
-          -fsanitize=address
-          -fsanitize=undefined)
-target_link_options(main PRIVATE -fsanitize=address -fsanitize=undefined)
+          -Wsign-conversion)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  target_compile_options(main PRIVATE -fsanitize=address -fsanitize=undefined)
+  target_link_options(main PRIVATE -fsanitize=address -fsanitize=undefined)
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+  target_compile_options(main PRIVATE -O3 -Werror)
+endif()
 
 add_executable(test "test.cpp")
 target_compile_options(
@@ -35,11 +38,15 @@ target_compile_options(
           -Wunused-parameter
           -Wshadow
           -Wconversion
-          -Wsign-conversion
-          # -Werror
-          -fsanitize=address
-          -fsanitize=undefined)
-target_link_options(test PRIVATE -fsanitize=address -fsanitize=undefined)
+          -Wsign-conversion)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  target_compile_options(test PRIVATE -fsanitize=address -fsanitize=undefined)
+  target_link_options(test PRIVATE -fsanitize=address -fsanitize=undefined)
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+  target_compile_options(test PRIVATE -O3 -Werror)
+endif()
+
 find_package(GTest REQUIRED)
 target_link_libraries(test GTest::gtest_main GTest::gmock)
 gtest_discover_tests(test)
