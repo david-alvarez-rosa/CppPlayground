@@ -1,6 +1,6 @@
 * C++ Playground
 A sandbox environment for C++ experimentation:
-- *Run code* with ~main.cpp~
+- *Run code* with ~main.cpp~ or ~fast.cpp~
 - *Test code* with ~test.cpp~ using GoogleTest
 - *Benchmark code* with ~benchmark.cpp~ using GoogleBenchmark
 - *View assembly* with ~assembly.cpp~
