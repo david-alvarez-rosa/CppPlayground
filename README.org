@@ -14,6 +14,14 @@ Edit ~main.cpp~ file
   $ lldb ./build/main  # Debug
 #+end_src
 
+Alternatively, for faster prototyping without any checks, use the
+~fast.cpp~ file
+#+begin_src sh
+  $ cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=<Debug|Release>  # Configure
+  $ cmake --build build  # Build
+  $ ./build/fast  # Run
+#+end_src
+
 ** Test
 Install GoogleTest
 #+begin_src sh
