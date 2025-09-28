@@ -17,7 +17,7 @@ Edit ~main.cpp~ file
 Alternatively, for faster prototyping without any checks, use the
 ~fast.cpp~ file
 #+begin_src sh
-  $ cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=<Debug|Release>  # Configure
+  $ cmake -B build -G Ninja  # Configure
   $ cmake --build build  # Build
   $ ./build/fast  # Run
 #+end_src
