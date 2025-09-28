@@ -56,7 +56,7 @@ gtest_discover_tests(test)
 
 add_executable(benchmark "benchmark.cpp")
 find_package(benchmark REQUIRED)
-target_compile_options(benchmark PRIVATE -O3)
+target_compile_options(benchmark PRIVATE -O3 -march=native -ffast-math)
 target_link_libraries(benchmark PRIVATE benchmark::benchmark_main)
 
 add_executable(assembly "assembly.cpp")
