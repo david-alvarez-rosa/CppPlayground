@@ -11,7 +11,7 @@ set_target_properties(fast PROPERTIES CXX_CLANG_TIDY "")
 add_executable(main "main.cpp")
 target_compile_options(
   main
-  PRIVATE -g
+  PRIVATE
           -Wall
           -Wpedantic
           -Wextra
@@ -26,7 +26,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   target_compile_options(main PRIVATE -fsanitize=address -fsanitize=undefined)
   target_link_options(main PRIVATE -fsanitize=address -fsanitize=undefined)
 elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
-  target_compile_options(main PRIVATE -O3 -Werror)
+  target_compile_options(main PRIVATE -O3 -march=native -ffast-math)
 endif()
 
 add_executable(test "test.cpp")
@@ -57,7 +57,7 @@ gtest_discover_tests(test)
 add_executable(benchmark "benchmark.cpp")
 find_package(benchmark REQUIRED)
 target_compile_options(benchmark PRIVATE -O3 -march=native -ffast-math)
-target_link_libraries(benchmark PRIVATE benchmark::benchmark_main)
+target_link_libraries(benchmark PRIVATE benchmark::benchmark_main pthread)
 
 add_executable(assembly "assembly.cpp")
 target_compile_options(
