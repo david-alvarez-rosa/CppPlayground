@@ -190,4 +190,4 @@ Generates ~build/assembly_demangled.s~
 #+end_src
 
 ** Contributions
-Suggestions or improvements? Raise a pull request!
+Suggestions or improvements?  Raise a pull request!
