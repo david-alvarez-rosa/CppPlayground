@@ -1,14 +1,14 @@
 Checks: >
   -*,
   boost-*,
-  bugprone-*
-  cert-*
-  clang-analyzer-*
-  concurrency-*
+  bugprone-*,
+  cert-*,
+  clang-analyzer-*,
+  concurrency-*,
   cppcoreguidelines-*,
   google-*,
-  misc-*
-  modernize-*
+  misc-*,
+  modernize-*,
   performance-*,
   portability-*,
   readability-*,
