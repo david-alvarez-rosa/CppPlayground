@@ -31,4 +31,4 @@ ssh homelab "cd ~/tmp/CppPlayground/ &&
   conan install . -of build/release --build=missing &&
   cmake --preset release &&
   cmake --build --preset release --target benchmark &&
-  taskset -c 7 ./build/release/benchmark $*"
+  taskset -c 0-4 ./build/release/benchmark $*"
