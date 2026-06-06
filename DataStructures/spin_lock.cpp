@@ -34,8 +34,7 @@ class SpinLockV2 {
 public:
   auto lock() noexcept -> void {
     while (true) {
-      if (!locked_.exchange(true)) [[likely]]
-        return;
+      if (!locked_.exchange(true)) return;
       do {
         for (volatile int i = 0; i < backoff_iters; ++i);
       } while (locked_.load());
@@ -50,8 +49,7 @@ class SpinLockV3 {
 public:
   auto lock() noexcept -> void {
     while (true) {
-      if (!locked_.exchange(true)) [[likely]]
-        return;
+      if (!locked_.exchange(true)) return;
       do {
         for (auto i = 0; i < 4; ++i) _mm_pause();
       } while (locked_.load());
@@ -67,8 +65,7 @@ public:
   auto lock() noexcept -> void {
     auto backoff_iters = 4;
     while (true) {
-      if (!locked_.exchange(true)) [[likely]]
-        return;
+      if (!locked_.exchange(true)) return;
       do {
         for (auto i = 0; i < backoff_iters; ++i) _mm_pause();
         backoff_iters = std::min(backoff_iters << 1, 1024);
