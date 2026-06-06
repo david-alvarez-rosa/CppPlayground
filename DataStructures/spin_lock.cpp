@@ -27,8 +27,6 @@ public:
 };
 
 class SpinLockV2 {
-  static constexpr auto backoff_iters = 150;
-
   std::atomic_bool locked_{false};
 
 public:
@@ -36,7 +34,7 @@ public:
     while (true) {
       if (!locked_.exchange(true)) return;
       do {
-        for (volatile int i = 0; i < backoff_iters; ++i);
+        for (volatile int i = 0; i < 150; ++i);
       } while (locked_.load());
     }
   }
