@@ -1,9 +1,9 @@
 * C++ Playground
 A sandbox environment for C++ experimentation:
-- *Run code* with ~main.cpp~ or ~fast.cpp~
-- *Test code* with ~test.cpp~ using GoogleTest
-- *Benchmark code* with ~benchmark.cpp~ using GoogleBenchmark
-- *View assembly* with ~assembly.cpp~
+- *Run code* with ~scratch/main.cpp~ or ~scratch/fast.cpp~
+- *Test code* with ~scratch/test.cpp~ using GoogleTest
+- *Benchmark code* with ~scratch/benchmark.cpp~ using GoogleBenchmark
+- *View assembly* with ~scratch/assembly.cpp~
 
 ** Setup
 Dependencies (GoogleTest, GoogleBenchmark) are managed with Conan
@@ -19,7 +19,7 @@ Install dependencies and configure
 #+end_src
 
 ** Run
-Edit ~main.cpp~ file
+Edit ~scratch/main.cpp~ file
 #+begin_src sh
   $ cmake --preset debug  # Configure
   $ cmake --build --preset debug  # Build
@@ -28,7 +28,7 @@ Edit ~main.cpp~ file
 #+end_src
 
 Alternatively, for faster prototyping without any checks, use the
-~fast.cpp~ file
+~scratch/fast.cpp~ file
 #+begin_src sh
   $ cmake --preset debug  # Configure
   $ cmake --build --preset debug  # Build
@@ -36,7 +36,7 @@ Alternatively, for faster prototyping without any checks, use the
 #+end_src
 
 ** Test
-Edit ~test.cpp~ file
+Edit ~scratch/test.cpp~ file
 #+begin_src sh
   $ cmake --preset debug  # Configure
   $ cmake --build --preset debug  # Build
@@ -92,7 +92,7 @@ Example solution for Leetcode 1 problem ~twoSum~
 #+end_src
 
 ** Benchmark
-Edit ~benchmark.cpp~ file
+Edit ~scratch/benchmark.cpp~ file
 #+begin_src sh
   $ cmake --build --preset release  # Build
   $ ./build/release/benchmark  # Run
@@ -140,7 +140,7 @@ That generates the following output
 #+end_src
 
 ** Assembly
-Edit ~assembly.cpp~ file (use the ~debug~ preset instead, depending on
+Edit ~scratch/assembly.cpp~ file (use the ~debug~ preset instead, depending on
 the assembly you want to see)
 #+begin_src sh
   $ cmake --preset release  # Configure
