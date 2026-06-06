@@ -29,9 +29,9 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
   target_compile_options(main PRIVATE -O3 -march=native -ffast-math)
 endif()
 
-add_executable(test "test.cpp")
+add_executable(tests "test.cpp")
 target_compile_options(
-  test
+  tests
   PRIVATE -g
           -Wall
           -Wpedantic
@@ -44,15 +44,17 @@ target_compile_options(
           -Wsign-conversion)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  target_compile_options(test PRIVATE -fsanitize=address -fsanitize=undefined)
-  target_link_options(test PRIVATE -fsanitize=address -fsanitize=undefined)
+  target_compile_options(tests PRIVATE -fsanitize=address -fsanitize=undefined)
+  target_link_options(tests PRIVATE -fsanitize=address -fsanitize=undefined)
 elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
-  target_compile_options(test PRIVATE -O3 -Werror)
+  target_compile_options(tests PRIVATE -O3 -Werror)
 endif()
 
 find_package(GTest REQUIRED)
-target_link_libraries(test GTest::gtest_main GTest::gmock)
-gtest_discover_tests(test)
+include(GoogleTest)
+enable_testing()
+target_link_libraries(tests GTest::gtest_main GTest::gmock)
+gtest_discover_tests(tests)
 
 add_executable(benchmark "benchmark.cpp")
 find_package(benchmark REQUIRED)
