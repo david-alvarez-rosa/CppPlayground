@@ -2,16 +2,18 @@
 
 set -e
 
-cp test.cpp test.cpp.backup
-CC=clang CXX=clang++ cmake -S . -B build -G Ninja
+cp scratch/test.cpp scratch/test.cpp.backup
 
-git diff --name-only HEAD~9 HEAD | grep -E "Leetcode/.*cpp" | while read -r file_path
+[ -f build/debug/conan_toolchain.cmake ] || conan install . -of build/debug --build=missing -s build_type=Debug
+cmake --preset debug
+
+git diff --name-only HEAD~9 HEAD | grep -E "leetcode/.*cpp" | while read -r file_path
 do
-    [ -f $file_path ] || continue
+    [ -f "$file_path" ] || continue
     printf "\n-------- Running tests for file %s --------\n" "$file_path"
-    cp $file_path test.cpp
-    cmake --build build
-    ./build/test && printf "Test succeeded :)\n\n" || exit 1
+    cp "$file_path" scratch/test.cpp
+    cmake --build --preset debug --target tests
+    ctest --preset debug --output-on-failure && printf "Test succeeded :)\n\n" || exit 1
 done
 
-mv test.cpp.backup test.cpp
+mv scratch/test.cpp.backup scratch/test.cpp
