@@ -9,7 +9,7 @@ cp scratch/test.cpp scratch/test.cpp.backup
 [ -f build/debug/conan_toolchain.cmake ] || conan install . -of build/debug --build=missing -s build_type=Debug
 cmake --preset debug
 
-git diff --name-only HEAD~9 HEAD | grep -E "leetcode/.*cpp" | while read -r file_path
+git diff --name-only --diff-filter=AM HEAD~9 HEAD | grep -E "leetcode/.*cpp" | while read -r file_path
 do
     [ -f "$file_path" ] || continue
     printf "\n-------- Running tests for file %s --------\n" "$file_path"
