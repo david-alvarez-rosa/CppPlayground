@@ -15,7 +15,10 @@ jobs:
       run: sudo apt-get update
 
     - name: Install dependencies
-      run: sudo apt-get install libgmock-dev libgtest-dev libbenchmark-dev llvm clang
+      run: sudo apt-get install ninja-build clang-tidy
+
+    - name: Install Conan
+      run: pipx install conan && conan profile detect
 
     - name: Run tests
-      run: ${{github.workspace}}/.github/run-leetcode-tests.sh || exit 1
+      run: ${{github.workspace}}/scripts/run-leetcode-tests.sh || exit 1
