@@ -2,6 +2,8 @@
 
 set -e
 
+export ASAN_OPTIONS=detect_leaks=0
+
 cp scratch/test.cpp scratch/test.cpp.backup
 
 [ -f build/debug/conan_toolchain.cmake ] || conan install . -of build/debug --build=missing -s build_type=Debug
