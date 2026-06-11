@@ -10,15 +10,15 @@ A sandbox environment for C++ experimentation:
 
 Required toolchain: a C++26 compiler ~clang++~ (or ~g++~) and ~cmake~.
 
-Optional: ~clang-tidy~ (linter) and ~ccache~ (compilation cache), both
-auto-detected when installed; ~ninja~ (build generator); ~clang-format~
-(formatter); ~lldb~ (or ~gdb~) for debugging; and ~llvm-cxxfilt~ (or
-~c++filt~) to demangle the assembly output.
+Optional: ~clang-tidy~ (linter), ~ccache~ (compilation cache) and ~mold~
+(fast linker), all auto-detected when installed; ~ninja~ (build
+generator); ~clang-format~ (formatter); ~lldb~ (or ~gdb~) for debugging;
+and ~llvm-cxxfilt~ (or ~c++filt~) to demangle the assembly output.
 
 #+begin_src sh
-  $ sudo pacman -S clang llvm lldb cmake ninja ccache                                  # Arch
-  $ sudo apt install clang clang-tidy clang-format lldb llvm cmake ninja-build ccache  # Debian/Ubuntu
-  $ sudo dnf install clang clang-tools-extra lldb llvm cmake ninja-build ccache        # Fedora
+  $ sudo pacman -S clang llvm lldb cmake ninja ccache mold                                  # Arch
+  $ sudo apt install clang clang-tidy clang-format lldb llvm cmake ninja-build ccache mold  # Debian/Ubuntu
+  $ sudo dnf install clang clang-tools-extra lldb llvm cmake ninja-build ccache mold        # Fedora
 #+end_src
 
 Library dependencies (GoogleTest, GoogleBenchmark) are managed with

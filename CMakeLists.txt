@@ -14,6 +14,11 @@ if(CCACHE_PROGRAM)
   set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
 endif()
 
+find_program(MOLD_PROGRAM mold)
+if(MOLD_PROGRAM)
+  add_link_options(-fuse-ld=mold)
+endif()
+
 add_executable(fast "scratch/fast.cpp")
 set_target_properties(fast PROPERTIES CXX_CLANG_TIDY "")
 
