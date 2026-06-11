@@ -1,4 +1,5 @@
 * C++ Playground
+
 A sandbox environment for C++ experimentation:
 - *Run code* with ~scratch/main.cpp~ or ~scratch/fast.cpp~
 - *Test code* with ~scratch/test.cpp~ using GoogleTest
@@ -6,32 +7,39 @@ A sandbox environment for C++ experimentation:
 - *View assembly* with ~scratch/assembly.cpp~
 
 ** Setup
-Required toolchain: a C++23 compiler ~clang++~ (or ~g++~) and ~cmake~.
+
+Required toolchain: a C++26 compiler ~clang++~ (or ~g++~) and ~cmake~.
 
 Optional: ~clang-tidy~ (linter) and ~ccache~ (compilation cache), both
 auto-detected when installed; ~ninja~ (build generator); ~clang-format~
 (formatter); ~lldb~ (or ~gdb~) for debugging; and ~llvm-cxxfilt~ (or
 ~c++filt~) to demangle the assembly output.
+
 #+begin_src sh
   $ sudo pacman -S clang llvm lldb cmake ninja ccache                                  # Arch
   $ sudo apt install clang clang-tidy clang-format lldb llvm cmake ninja-build ccache  # Debian/Ubuntu
   $ sudo dnf install clang clang-tools-extra lldb llvm cmake ninja-build ccache        # Fedora
 #+end_src
 
-Library dependencies (GoogleTest, GoogleBenchmark) are managed with Conan
+Library dependencies (GoogleTest, GoogleBenchmark) are managed with
+Conan
+
 #+begin_src sh
   $ uv tool install conan2
   $ conan profile detect
 #+end_src
 
 Install dependencies and configure
+
 #+begin_src sh
-  $ conan install . -of build/release --build=missing --lockfile=conan.lock  # Release
-  $ conan install . -of build/debug --build=missing --lockfile=conan.lock -s build_type=Debug  # Debug
+  $ conan install . -of build/release -pr conan/profile --build=missing --lockfile=conan.lock  # Release
+  $ conan install . -of build/debug -pr conan/profile --build=missing --lockfile=conan.lock -s build_type=Debug  # Debug
 #+end_src
 
 ** Run
+
 Edit ~scratch/main.cpp~ file
+
 #+begin_src sh
   $ cmake --preset debug  # Configure
   $ cmake --build --preset debug  # Build
@@ -41,6 +49,7 @@ Edit ~scratch/main.cpp~ file
 
 Alternatively, for faster prototyping without any checks, use the
 ~scratch/fast.cpp~ file
+
 #+begin_src sh
   $ cmake --preset debug  # Configure
   $ cmake --build --preset debug  # Build
@@ -48,7 +57,9 @@ Alternatively, for faster prototyping without any checks, use the
 #+end_src
 
 ** Test
+
 Edit ~scratch/test.cpp~ file
+
 #+begin_src sh
   $ cmake --preset debug  # Configure
   $ cmake --build --preset debug  # Build
@@ -57,12 +68,14 @@ Edit ~scratch/test.cpp~ file
 #+end_src
 
 For listing and running specific tests
+
 #+begin_src sh
   $ ctest --preset debug -N  # List tests
   $ ctest --preset debug -R '<regex>'  # Run matching tests
 #+end_src
 
 Example solution for Leetcode 1 problem ~twoSum~
+
 #+begin_src c++
   #include <gmock/gmock.h>
   #include <gtest/gtest.h>
@@ -104,7 +117,9 @@ Example solution for Leetcode 1 problem ~twoSum~
 #+end_src
 
 ** Benchmark
+
 Edit ~scratch/benchmark.cpp~ file
+
 #+begin_src sh
   $ cmake --build --preset release  # Build
   $ ./build/release/benchmark  # Run
@@ -112,6 +127,7 @@ Edit ~scratch/benchmark.cpp~ file
 #+end_src
 
 Example from https://quick-bench.com/
+
 #+begin_src c++
   #include <benchmark/benchmark.h>
 
@@ -134,6 +150,7 @@ Example from https://quick-bench.com/
 #+end_src
 
 That generates the following output
+
 #+begin_src sh
   Running build/benchmark
   Run on (14 X 4400 MHz CPU s)
@@ -152,8 +169,10 @@ That generates the following output
 #+end_src
 
 ** Assembly
-Edit ~scratch/assembly.cpp~ file (use the ~debug~ preset instead, depending on
-the assembly you want to see)
+
+Edit ~scratch/assembly.cpp~ file (use the ~debug~ preset instead,
+depending on the assembly you want to see)
+
 #+begin_src sh
   $ cmake --preset release  # Configure
   $ cmake --build --preset release  # Build
@@ -162,6 +181,7 @@ the assembly you want to see)
 #+end_src
 
 Example
+
 #+begin_src c++
   auto add(int a, int b) -> int {
     return a + b;
@@ -173,6 +193,7 @@ Example
 #+end_src
 
 Generates ~build/release/assembly_demangled.s~
+
 #+begin_src asm
   add(int, int):                               # @add(int, int)
   # %bb.0:
@@ -201,4 +222,5 @@ Generates ~build/release/assembly_demangled.s~
 #+end_src
 
 ** Contributions
+
 Suggestions or improvements?  Raise a pull request!
