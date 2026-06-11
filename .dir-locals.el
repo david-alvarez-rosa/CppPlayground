@@ -1,1 +1,1 @@
-((nil . ((compile-command . "cmake --build --preset debug && ./build/debug/main"))))
+((nil . ((compile-command . "cmake --build --preset debug && ./build/debug/fast"))))
