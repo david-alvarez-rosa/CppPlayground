@@ -21,4 +21,6 @@ jobs:
       run: pipx install conan && conan profile detect
 
     - name: Run tests
+      env:
+        CONAN_PROFILE: conan/profile-ci
       run: ${{github.workspace}}/scripts/run-leetcode-tests.sh || exit 1
