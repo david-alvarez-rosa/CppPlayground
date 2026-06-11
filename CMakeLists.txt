@@ -3,7 +3,16 @@ project(CppPlayground)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_CLANG_TIDY clang-tidy)
+
+find_program(CLANG_TIDY_PROGRAM clang-tidy)
+if(CLANG_TIDY_PROGRAM)
+  set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_PROGRAM}")
+endif()
+
+find_program(CCACHE_PROGRAM ccache)
+if(CCACHE_PROGRAM)
+  set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+endif()
 
 add_executable(fast "scratch/fast.cpp")
 set_target_properties(fast PROPERTIES CXX_CLANG_TIDY "")

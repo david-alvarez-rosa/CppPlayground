@@ -6,7 +6,19 @@ A sandbox environment for C++ experimentation:
 - *View assembly* with ~scratch/assembly.cpp~
 
 ** Setup
-Dependencies (GoogleTest, GoogleBenchmark) are managed with Conan
+Required toolchain: a C++23 compiler ~clang++~ (or ~g++~) and ~cmake~.
+
+Optional: ~clang-tidy~ (linter) and ~ccache~ (compilation cache), both
+auto-detected when installed; ~ninja~ (build generator); ~clang-format~
+(formatter); ~lldb~ (or ~gdb~) for debugging; and ~llvm-cxxfilt~ (or
+~c++filt~) to demangle the assembly output.
+#+begin_src sh
+  $ sudo pacman -S clang llvm lldb cmake ninja ccache                                  # Arch
+  $ sudo apt install clang clang-tidy clang-format lldb llvm cmake ninja-build ccache  # Debian/Ubuntu
+  $ sudo dnf install clang clang-tools-extra lldb llvm cmake ninja-build ccache        # Fedora
+#+end_src
+
+Library dependencies (GoogleTest, GoogleBenchmark) are managed with Conan
 #+begin_src sh
   $ uv tool install conan2
   $ conan profile detect
