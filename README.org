@@ -25,7 +25,7 @@ Library dependencies (GoogleTest, GoogleBenchmark) are managed with
 Conan
 
 #+begin_src sh
-  $ uv tool install conan2
+  $ uv tool install conan
   $ conan profile detect
 #+end_src
 
@@ -170,14 +170,14 @@ That generates the following output
 
 ** Assembly
 
-Edit ~scratch/assembly.cpp~ file (use the ~debug~ preset instead,
+Edit ~scratch/assembly.cpp~ file (use the ~release~ preset instead,
 depending on the assembly you want to see)
 
 #+begin_src sh
-  $ cmake --preset release  # Configure
-  $ cmake --build --preset release  # Build
-  $ ./build/release/assembly  # Run
-  $ lldb ./build/release/assembly  # Debug
+  $ cmake --preset debug  # Configure
+  $ cmake --build --preset debug  # Build
+  $ ./build/debug/assembly  # Run
+  $ lldb ./build/debug/assembly  # Debug
 #+end_src
 
 Example
@@ -192,7 +192,7 @@ Example
   }
 #+end_src
 
-Generates ~build/release/assembly_demangled.s~
+Generates ~build/debug/assembly_demangled.s~
 
 #+begin_src asm
   add(int, int):                               # @add(int, int)
