@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(CppPlayground)
 
-set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_program(CLANG_TIDY_PROGRAM clang-tidy)
