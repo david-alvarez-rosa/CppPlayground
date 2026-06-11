@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   string maximumOddBinaryNumber(string s) {
     size_t count_ones{0}, n{s.length()};
 

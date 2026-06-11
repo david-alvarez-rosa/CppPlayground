@@ -47,7 +47,7 @@ struct hash<Vector2D> {
 }  // namespace std
 
 class MemorySpace final {
- public:
+public:
   explicit MemorySpace(std::vector<Pos> byte_positions) noexcept {
     for (auto i{0}; i < 1024; i++) {
       grid_[byte_positions[i].row][byte_positions[i].col] = '#';
@@ -82,7 +82,7 @@ class MemorySpace final {
     return -1;
   }
 
- private:
+private:
   std::vector<std::vector<char>> grid_ =
       std::vector<std::vector<char>>(71, std::vector<char>(71, '.'));
   std::vector<Dir> dirs_{

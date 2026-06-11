@@ -10,7 +10,7 @@ class HasFoo {
   template <typename>
   static std::false_type Test(...);
 
- public:
+public:
   static constexpr bool value = decltype(Test<T>(0))::value;
 };
 

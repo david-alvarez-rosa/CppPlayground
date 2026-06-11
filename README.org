@@ -12,8 +12,9 @@ Required toolchain: a C++26 compiler ~clang++~ (or ~g++~) and ~cmake~.
 
 Optional: ~clang-tidy~ (linter), ~ccache~ (compilation cache) and ~mold~
 (fast linker), all auto-detected when installed; ~ninja~ (build
-generator); ~clang-format~ (formatter); ~lldb~ (or ~gdb~) for debugging;
-and ~llvm-cxxfilt~ (or ~c++filt~) to demangle the assembly output.
+generator); ~clang-format~ and ~cmake-format~ (formatters); ~lldb~ (or
+~gdb~) for debugging; and ~llvm-cxxfilt~ (or ~c++filt~) to demangle the
+assembly output.
 
 #+begin_src sh
   $ sudo pacman -S clang llvm lldb cmake ninja ccache mold                                  # Arch
@@ -34,6 +35,16 @@ Install dependencies and configure
 #+begin_src sh
   $ conan install . -of build/release -pr conan/profile --build=missing --lockfile=conan.lock  # Release
   $ conan install . -of build/debug -pr conan/profile --build=missing --lockfile=conan.lock -s build_type=Debug  # Debug
+#+end_src
+
+** Git Hooks
+
+Install ~pre-commit~ once, then install the repository hooks once per
+clone.  ~clang-format~ and ~cmake-format~ check formatting on push.
+
+#+begin_src sh
+  $ uv tool install pre-commit
+  $ pre-commit install
 #+end_src
 
 ** Run

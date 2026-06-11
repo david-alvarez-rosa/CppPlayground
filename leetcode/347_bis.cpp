@@ -5,7 +5,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   vector<int> topKFrequent(vector<int>& nums, int k) {
     unordered_map<int, int> fqs;
     for (const auto num : nums) fqs[num]++;
@@ -22,7 +22,7 @@ class Solution {
     return ans;
   }
 
- private:
+private:
   int partition(vector<pair<int, int>>& v, int l, int r, int pivot) {
     int p{l};
     for (int i{l}; i < r; i++) {

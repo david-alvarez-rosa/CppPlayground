@@ -6,7 +6,7 @@ using namespace std;
 using namespace testing;
 
 class Solution {
- public:
+public:
   vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
     unordered_set<int> us;
     for (const auto num1 : nums1) us.insert(num1);

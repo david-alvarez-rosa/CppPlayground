@@ -6,7 +6,7 @@
 #include <vector>
 
 class CalibrationEquation final {
- public:
+public:
   explicit CalibrationEquation(uint64_t total,
                                std::vector<int> operands) noexcept
       : total_{total}, operands_{std::move(operands)} {}
@@ -34,7 +34,7 @@ class CalibrationEquation final {
     return total_;
   }
 
- private:
+private:
   uint64_t total_;
   std::vector<int> operands_;
 };

@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int tribonacci(int n) {
     vector<int> dp(38);
     dp[0] = 0;

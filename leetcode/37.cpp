@@ -17,7 +17,7 @@ class Solution {
     return true;
   }
 
- public:
+public:
   auto solveSudoku(Sudoku& sudoku) noexcept -> bool {
     for (auto row = 0ZU; row < N; ++row) {
       for (auto col = 0ZU; col < N; ++col) {

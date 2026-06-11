@@ -7,7 +7,7 @@
 using Matrix = std::vector<std::vector<int>>;
 
 class Solution {
- public:
+public:
   [[nodiscard]] static auto sortMatrix(Matrix& grid) noexcept -> Matrix {
     auto n = grid.size();
     auto get_diag_id = [] [[nodiscard]] (auto row, auto col) noexcept {

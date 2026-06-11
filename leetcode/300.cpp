@@ -5,7 +5,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int lengthOfLIS(vector<int>& nums, int prev = INT_MIN, int start = 0) {
     if (start == nums.size()) return 0;
     int ans = lengthOfLIS(nums, prev, start + 1);

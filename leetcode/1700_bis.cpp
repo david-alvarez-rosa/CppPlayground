@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int countStudents(vector<int>& students, vector<int>& sandwiches) {
     vector<int> counts(2, 0);
     for (const auto student : students) counts[student]++;

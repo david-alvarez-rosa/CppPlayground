@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int numSubarrayProductLessThanK(vector<int>& nums, int k) {
     if (k == 0) return 0;
 

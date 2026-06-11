@@ -1,0 +1,21 @@
+default_install_hook_types:
+  - pre-push
+
+repos:
+  - repo: local
+    hooks:
+      - id: clang-format-check
+        name: clang-format check
+        entry: sh -c "git ls-files '*.cpp' '*.hpp' | xargs clang-format --dry-run --Werror"
+        language: system
+        pass_filenames: false
+        stages:
+          - pre-push
+
+      - id: cmake-format-check
+        name: cmake-format check
+        entry: sh -c "git ls-files 'CMakeLists.txt' '*.cmake' | xargs -r cmake-format --check"
+        language: system
+        pass_filenames: false
+        stages:
+          - pre-push

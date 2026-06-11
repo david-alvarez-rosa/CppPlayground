@@ -12,7 +12,7 @@ struct ListNode {
 };
 
 class Solution {
- public:
+public:
   bool hasCycle(ListNode* head) {
     auto slow{head}, fast{head};
     while (fast && fast->next) {

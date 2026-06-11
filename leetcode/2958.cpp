@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int maxSubarrayLength(vector<int>& nums, int k) {
     int ans{0};
     unordered_map<int, int> fqs;

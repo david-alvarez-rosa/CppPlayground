@@ -8,7 +8,7 @@ using Design = std::string;
 using Pattern = std::string;
 
 class TowelDesigner final {
- public:
+public:
   explicit TowelDesigner(const std::vector<Pattern> patterns) noexcept
       : patterns_{patterns} {}
 
@@ -18,7 +18,7 @@ class TowelDesigner final {
     return IsValidDesignMemoize(design, 0, dp);
   }
 
- private:
+private:
   std::vector<Pattern> patterns_;
 
   [[nodiscard]] auto IsValidDesignMemoize(const Design& design, size_t start,

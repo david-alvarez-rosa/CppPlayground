@@ -11,7 +11,7 @@ struct ListNode {
 };
 
 class Solution {
- public:
+public:
   ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {
     auto ath_node{list1};
     int c = b - a + 1;

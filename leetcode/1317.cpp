@@ -4,7 +4,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   [[nodiscard]]
   static auto getNoZeroIntegers(int n) noexcept -> std::vector<int> {
     auto x = 0, y = 0, mult = 1;

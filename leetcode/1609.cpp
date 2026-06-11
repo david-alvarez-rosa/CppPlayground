@@ -14,7 +14,7 @@ struct TreeNode {
 };
 
 class Solution {
- public:
+public:
   bool isEvenOddTree(TreeNode* root) {
     if (root == nullptr) return true;
     queue<pair<TreeNode*, int>> q;

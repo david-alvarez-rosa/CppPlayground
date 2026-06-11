@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int minimumLength(string s) {
     size_t left{0}, right{s.size() - 1};
     while (left < right) {

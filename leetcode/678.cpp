@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   bool checkValidString(string s) {
     for (int i{0}, count{0}, asterisk{0}; i < s.size(); i++) {
       if (s[i] == '*') {

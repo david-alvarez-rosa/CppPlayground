@@ -31,7 +31,7 @@ class Solution {
     return x = ans;
   }
 
- public:
+public:
   [[nodiscard]]
   auto maxAverageRatio(const std::vector<std::vector<int>>& classes,
                        int extraStudents) noexcept -> double {

@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int missingNumber(vector<int>& nums) {
     auto n{nums.size()};
     vector<bool> found(n + 1, false);

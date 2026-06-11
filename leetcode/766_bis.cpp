@@ -3,7 +3,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   bool isToeplitzMatrix(std::vector<std::vector<int>>& matrix) {
     auto is_inside = [&matrix](int i, int j) {
       return i >= 0 && i < matrix.size() && j >= 0 && j < matrix[0].size();

@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int lengthOfLIS(vector<int>& nums) {
     vector<int> dp(nums.size(), 1);
     for (size_t i{0}; i < nums.size(); i++)

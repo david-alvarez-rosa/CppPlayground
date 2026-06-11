@@ -4,13 +4,13 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int minCostClimbingStairs(vector<int>& cost) {
     cost_ = std::move(cost);
     return min(f(0), f(1));
   }
 
- private:
+private:
   int f(int step) {
     if (step > cost_.size()) return INT_MAX;
     if (step == cost_.size()) return 0;

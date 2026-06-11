@@ -4,7 +4,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   bool isToeplitzMatrix(std::vector<std::vector<int>>& matrix) {
     std::unordered_map<int, int> diags;
     for (std::size_t i = 0; i < matrix.size(); ++i) {

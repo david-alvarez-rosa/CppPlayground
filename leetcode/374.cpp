@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   explicit Solution(int pick) : pick_{pick} {}
 
   int guessNumber(int n) { return guessNumber(1, n); }
@@ -16,7 +16,7 @@ class Solution {
     return mid;
   }
 
- private:
+private:
   int guess(int num) {
     if (num > pick_) return -1;
     if (num < pick_) return 1;

@@ -6,7 +6,7 @@ using namespace std;
 using namespace testing;
 
 class Solution {
- public:
+public:
   vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
     set<int> set1(nums1.cbegin(), nums1.cend());
     set<int> set2(nums2.cbegin(), nums2.cend());

@@ -6,7 +6,7 @@
 #include <vector>
 
 class Report final {
- public:
+public:
   explicit Report(std::vector<int> levels) noexcept
       : levels_{std::move(levels)} {}
 
@@ -23,7 +23,7 @@ class Report final {
     return false;
   }
 
- private:
+private:
   std::vector<int> levels_;
 
   static auto IsSafePure(const std::vector<int>& levels) noexcept -> bool {

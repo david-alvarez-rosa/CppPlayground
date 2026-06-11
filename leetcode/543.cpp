@@ -14,7 +14,7 @@ struct TreeNode {
 };
 
 class Solution {
- public:
+public:
   int diameterOfBinaryTree(TreeNode* root) {
     if (!root) return 0;
     auto left_diameter = diameterOfBinaryTree(root->left);
@@ -23,7 +23,7 @@ class Solution {
     return max({left_diameter, right_diameter, root_diameter});
   }
 
- private:
+private:
   int height(TreeNode* root) {
     if (!root) return 0;
     return 1 + max(height(root->left), height(root->right));

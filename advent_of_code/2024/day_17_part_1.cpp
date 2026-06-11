@@ -9,7 +9,7 @@
 using Program = std::vector<int>;
 
 class Computer final {
- public:
+public:
   explicit Computer(int register_a, int register_b, int register_c) noexcept
       : register_a_{register_a},
         register_b_{register_b},
@@ -65,7 +65,7 @@ class Computer final {
     }
   }
 
- private:
+private:
   int register_a_;
   int register_b_;
   int register_c_;

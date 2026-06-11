@@ -4,7 +4,7 @@
 #include <vector>
 
 class GridWordCounter final {
- public:
+public:
   GridWordCounter(std::vector<std::vector<char>> grid, std::string&& target)
       : grid_{std::move(grid)}, target_{target} {}
 
@@ -20,7 +20,7 @@ class GridWordCounter final {
     return count;
   }
 
- private:
+private:
   struct Pos {
     int row;
     int col;

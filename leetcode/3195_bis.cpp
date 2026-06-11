@@ -3,7 +3,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   static int minimumArea(std::vector<std::vector<int>>& grid) {
     int m = grid.size(), n = grid[0].size();
     auto min_row = m, max_row = -1, min_col = n, max_col = -1;

@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int maxFrequencyElements(vector<int>& nums) {
     unordered_map<int, int> fqs;
     for (const auto num : nums) fqs[num]++;

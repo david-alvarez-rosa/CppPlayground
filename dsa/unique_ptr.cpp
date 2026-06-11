@@ -1,17 +1,17 @@
 #include <gtest/gtest.h>
 
 class MyType {
- public:
+public:
   explicit MyType(int num) noexcept : num_{num} {};
   int GetNum() const noexcept { return num_; }
 
- private:
+private:
   int num_;
 };
 
 template <typename T>
 class UniquePtr final {
- public:
+public:
   explicit UniquePtr(T* ptr = nullptr) : ptr_{ptr} {}
 
   ~UniquePtr() { delete ptr_; }
@@ -54,7 +54,7 @@ class UniquePtr final {
 
   explicit operator bool() const noexcept { return nullptr != ptr_; }
 
- private:
+private:
   T* ptr_;
 };
 

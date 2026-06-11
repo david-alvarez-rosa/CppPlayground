@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int getCommon(vector<int>& nums1, vector<int>& nums2) {
     size_t i1{0}, i2{0};
     while (i1 < nums1.size() && i2 < nums2.size()) {

@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   bool rotateString(string s, string goal) {
     return s.length() == goal.length() && (s + s).contains(goal);
   }

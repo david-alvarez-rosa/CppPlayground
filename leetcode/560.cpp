@@ -4,7 +4,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   int subarraySum(std::vector<int>& nums, int k, int start = 0) {
     auto ans = 0;
     for (std::size_t i = 0; i < nums.size(); ++i) {

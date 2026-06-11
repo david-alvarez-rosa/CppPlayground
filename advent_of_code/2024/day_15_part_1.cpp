@@ -23,7 +23,7 @@ struct Pos {
 using Dir = Pos;
 
 class Warehouse final {
- public:
+public:
   explicit Warehouse(std::vector<std::vector<char>> map,
                      std::vector<Dir> moves) noexcept
       : map_{std::move(map)}, moves_{std::move(moves)} {
@@ -66,7 +66,7 @@ class Warehouse final {
     return sum;
   }
 
- private:
+private:
   std::vector<std::vector<char>> map_;
   std::vector<Dir> moves_;
   Pos robot_pos_;

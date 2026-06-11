@@ -9,7 +9,7 @@ struct ListNode {
 };
 
 class Solution {
- public:
+public:
   ListNode* reverseList(ListNode* head) {
     ListNode* curr{head};
     ListNode* prev{nullptr};

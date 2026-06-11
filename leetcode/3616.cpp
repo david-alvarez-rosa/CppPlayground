@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 class Solution {
- public:
+public:
   [[nodiscard]]
   static auto findClosest(int x, int y, int z) noexcept -> int {
     auto dx = std::abs(x - z);

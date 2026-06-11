@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   string customSortString(string order, string s) {
     unordered_map<char, int> fqs;
     for (const auto c : s) fqs[c]++;

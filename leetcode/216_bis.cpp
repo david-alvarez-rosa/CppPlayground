@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   vector<vector<int>> combinationSum3(int k, int n, vector<int> curr = {},
                                       int foo = 1) {
     if (!curr.empty() && accumulate(curr.cbegin(), curr.cend(), 0) == n &&

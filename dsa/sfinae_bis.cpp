@@ -7,7 +7,8 @@ template <typename T, typename = void>
 struct HasFoo : std::false_type {};
 
 template <typename T>
-struct HasFoo<T, std::void_t<decltype(std::declval<T>().foo())>> : std::true_type {};
+struct HasFoo<T, std::void_t<decltype(std::declval<T>().foo())>>
+    : std::true_type {};
 
 struct A {
   static auto foo() noexcept -> std::string { return "A::foo()"; }

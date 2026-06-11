@@ -6,7 +6,7 @@ using namespace std;
 using namespace testing;
 
 class Solution {
- public:
+public:
   vector<int> deckRevealedIncreasing(vector<int>& deck) {
     sort(deck.begin(), deck.end());
 

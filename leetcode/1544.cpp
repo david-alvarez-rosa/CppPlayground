@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   string makeGood(string s) {
     if (s.empty()) return "";
     for (size_t i{0}; i < s.size() - 1; i++)

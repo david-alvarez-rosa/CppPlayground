@@ -12,7 +12,7 @@ struct ListNode {
 };
 
 class Solution {
- public:
+public:
   bool hasCycle(ListNode* head) {
     unordered_set<ListNode*> visited;
     while (head) {

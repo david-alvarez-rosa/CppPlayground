@@ -4,7 +4,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   static std::vector<int> findDiagonalOrder(
       std::vector<std::vector<int>>& matrix) {
     auto m = matrix.size(), n = matrix[0].size(), row = 0ZU, col = 0ZU;

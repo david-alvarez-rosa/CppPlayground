@@ -6,7 +6,7 @@ using namespace std;
 using namespace testing;
 
 class Solution {
- public:
+public:
   vector<string> letterCombinations(string digits, int start = 0) {
     if (digits.size() == 0) return {};
     if (start == digits.size() - 1) return mp_[digits[start] - '2'];
@@ -19,7 +19,7 @@ class Solution {
     return ans;
   }
 
- private:
+private:
   const vector<vector<string>> mp_ = {{"a", "b", "c"}, {"d", "e", "f"},
                                       {"g", "h", "i"}, {"j", "k", "l"},
                                       {"m", "n", "o"}, {"p", "q", "r", "s"},

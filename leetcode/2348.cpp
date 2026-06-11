@@ -4,19 +4,23 @@
 #include <vector>
 
 namespace {
-[[nodiscard]] __attribute__((always_inline)) constexpr int64_t sumN(std::size_t n) {
+[[nodiscard]] __attribute__((always_inline)) constexpr int64_t sumN(
+    std::size_t n) {
   return n * (n + 1) / 2;
 }
 }  // namespace
 
 class Solution {
- public:
-  [[nodiscard]] static int64_t zeroFilledSubarray(const std::vector<int>& nums) {
+public:
+  [[nodiscard]] static int64_t zeroFilledSubarray(
+      const std::vector<int>& nums) {
     auto ans = 0LL;
 
-    for (auto left = 0UZ, right = 0UZ, length = nums.size(); left < length; ++left) {
+    for (auto left = 0UZ, right = 0UZ, length = nums.size(); left < length;
+         ++left) {
       if (0 == nums[left]) {
-        for (right = left; right < length && 0 == nums[right]; ++right) {}
+        for (right = left; right < length && 0 == nums[right]; ++right) {
+        }
         ans += sumN(right - left);
         left = right - 1;
       }

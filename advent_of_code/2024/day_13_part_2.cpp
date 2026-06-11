@@ -12,7 +12,7 @@ struct Pos {
 };
 
 class Arcade {
- public:
+public:
   explicit Arcade(Pos button_a_delta, Pos button_b_delta,
                   Pos prize_pos) noexcept
       : button_a_delta_{button_a_delta},
@@ -64,7 +64,7 @@ class Arcade {
     return 3 * x + y;
   };
 
- private:
+private:
   Pos button_a_delta_;
   Pos button_b_delta_;
   Pos prize_pos_;

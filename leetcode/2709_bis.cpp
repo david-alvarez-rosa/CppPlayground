@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   bool canTraverseAllPairs(vector<int>& nums) {
     unordered_set<int> visited;
     queue<int> q;

@@ -5,7 +5,7 @@
 using Board = std::vector<std::vector<char>>;
 
 class Solution {
- public:
+public:
   [[nodiscard]]
   static auto isValidSudoku(const Board& board) noexcept -> bool {
     constexpr auto n = 9;

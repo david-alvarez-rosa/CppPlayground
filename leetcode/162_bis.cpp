@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int findPeakElement(vector<int>& nums) {
     size_t left{0}, right{nums.size() - 1};
     while (left <= right) {

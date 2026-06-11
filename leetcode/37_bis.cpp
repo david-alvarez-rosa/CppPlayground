@@ -17,7 +17,7 @@ class Solution {
     return true;
   }
 
- public:
+public:
   auto solveSudoku(Sudoku& sudoku, std::size_t row = 0,
                    std::size_t col = 0) noexcept -> bool {
     if (row == N) return true;

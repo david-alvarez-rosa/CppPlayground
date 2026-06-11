@@ -3,7 +3,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   static int countSquares(std::vector<std::vector<int>>& matrix) {
     auto m = matrix.size();
     auto n = matrix[0].size();

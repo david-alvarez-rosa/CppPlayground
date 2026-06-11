@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   string encode(vector<string>& strs) {
     string encoded;
     for (const auto& str : strs) encoded += to_string(str.length()) + '#' + str;

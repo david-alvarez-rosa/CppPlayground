@@ -16,7 +16,7 @@ class LruCache {
   std::unordered_map<Key, typename std::list<Node>::iterator> index_;
   std::size_t capacity_;
 
- public:
+public:
   explicit LruCache(std::size_t capacity) noexcept : capacity_{capacity} {}
 
   auto Push(const Key& key, Value value) noexcept -> void {

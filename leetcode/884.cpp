@@ -6,7 +6,7 @@ using namespace std;
 using namespace testing;
 
 class Solution {
- public:
+public:
   vector<string> uncommonFromSentences(string s1, string s2) {
     auto words1{extractWords(s1)};
     auto words2{extractWords(s2)};
@@ -22,7 +22,7 @@ class Solution {
     return ans;
   }
 
- private:
+private:
   vector<string> extractWords(const string& s) {
     vector<string> words;
 

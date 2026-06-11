@@ -12,7 +12,7 @@ struct Robot {
 };
 
 class BathroomSecurity final {
- public:
+public:
   explicit BathroomSecurity(std::vector<Robot> robots)
       : robots_{std::move(robots)} {}
 
@@ -55,7 +55,7 @@ class BathroomSecurity final {
            robots_fourth_quad;
   }
 
- private:
+private:
   std::vector<Robot> robots_;
   constexpr const static auto width{101};
   constexpr const static auto heigth{103};

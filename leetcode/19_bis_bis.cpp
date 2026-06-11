@@ -13,7 +13,7 @@ struct ListNode {
 };
 
 class Solution {
- public:
+public:
   ListNode* removeNthFromEnd(ListNode* head, int n) {
     auto tmp = head;
     int height{0};

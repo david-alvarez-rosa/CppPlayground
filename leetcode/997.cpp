@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int findJudge(int n, vector<vector<int>>& trust) {
     vector<int> trust_count(n + 1, 0);
     vector<int> trusted_count(n + 1, 0);

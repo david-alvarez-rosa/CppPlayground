@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   string makeGood(string s) {
     stack<char> ms;
     for (const auto c : s) {

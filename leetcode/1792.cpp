@@ -3,7 +3,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   [[nodiscard]]
   static auto maxAverageRatio(const std::vector<std::vector<int>>& classes,
                               int extraStudents, std::size_t start = 0) noexcept

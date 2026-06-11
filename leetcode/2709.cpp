@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   bool canTraverseAllPairs(vector<int>& nums) {
     auto n{nums.size()};
     vector<vector<int>> adj(n);

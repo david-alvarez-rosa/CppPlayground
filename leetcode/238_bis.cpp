@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   vector<int> productExceptSelf(vector<int>& nums) {
     int n = nums.size();
 

@@ -5,7 +5,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst,
                         int k) {
     vector<vector<pair<int, int>>> adj(n);  // [from](to, weight)

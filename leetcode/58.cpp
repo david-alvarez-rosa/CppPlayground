@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int lengthOfLastWord(string s) {
     int n = s.size();
     // clang-format off

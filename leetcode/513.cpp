@@ -14,10 +14,10 @@ struct TreeNode {
 };
 
 class Solution {
- public:
+public:
   int findBottomLeftValue(TreeNode* root) { return trackedHeight(root).second; }
 
- private:
+private:
   pair<int, int> trackedHeight(TreeNode* root) {  // (height, value)
     pair<int, int> left = {0, 0};
     if (root->left) left = trackedHeight(root->left);

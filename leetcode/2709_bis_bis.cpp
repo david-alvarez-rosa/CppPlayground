@@ -14,7 +14,7 @@ int gcd(int a, int b) {
 }  // namespace
 
 class Solution {
- public:
+public:
   bool canTraverseAllPairs(vector<int>& nums) {
     auto n{nums.size()};
     for (size_t i{0}; i < n; i++) parents_.emplace_back(i);
@@ -29,7 +29,7 @@ class Solution {
     return true;
   }
 
- private:
+private:
   int Find(int x) {
     auto& parent = parents_[x];
     if (parent == x) return parent;

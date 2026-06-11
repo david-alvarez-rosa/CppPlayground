@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int countStudents(vector<int>& students, vector<int>& sandwiches) {
     int sandwitch{0}, student{-1}, count{0};
     auto n = sandwiches.size();

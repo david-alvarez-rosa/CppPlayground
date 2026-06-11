@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int bagOfTokensScore(vector<int>& tokens, int power) {
     sort(tokens.begin(), tokens.end());
     unsigned int max_score{0}, score{0};

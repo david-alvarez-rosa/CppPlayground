@@ -25,7 +25,7 @@ class Solution {
     return ans;
   }
 
- public:
+public:
   int countSquares(const std::vector<std::vector<int>>& matrix) {
     auto ans = 0;
 

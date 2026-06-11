@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   string minRemoveToMakeValid(string s) {
     for (int i{0}, open{0}, close{0}; i < s.size(); i++) {
       if (s[i] == '(') open++;

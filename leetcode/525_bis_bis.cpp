@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int findMaxLength(vector<int>& nums) {
     unordered_map<int, int> mp;
     for (int i{0}; i < nums.size(); i++) {

@@ -6,7 +6,7 @@ using namespace std;
 using namespace testing;
 
 class Solution {
- public:
+public:
   vector<int> twoSum(vector<int>& nums, int target) {
     unordered_map<int, int> mp;  // (nums[i], i)
     for (int i{0}; i < nums.size(); i++) {

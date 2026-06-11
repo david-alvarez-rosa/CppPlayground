@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   string maximumOddBinaryNumber(string s) {
     auto n{s.length()};
 

@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   /* Explanation:
      sum from 1 to x = x*(x + 1)/2
      sum from x to n = (n + x)*(n - x - 1)/2
@@ -19,7 +19,7 @@ class Solution {
     return ans - (int)ans > kEps ? -1 : ans;
   }
 
- private:
+private:
   const double kEps{1e-6};
 };
 

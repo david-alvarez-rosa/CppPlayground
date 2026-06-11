@@ -24,8 +24,7 @@ set_target_properties(fast PROPERTIES CXX_CLANG_TIDY "")
 add_executable(main "scratch/main.cpp")
 target_compile_options(
   main
-  PRIVATE
-          -Wall
+  PRIVATE -Wall
           -Wpedantic
           -Wextra
           -Wuninitialized
@@ -71,7 +70,8 @@ gtest_discover_tests(tests)
 
 add_executable(benchmark "scratch/benchmark.cpp")
 find_package(benchmark REQUIRED)
-target_compile_options(benchmark PRIVATE -O3 -march=native -mtune=native -flto -ffast-math)
+target_compile_options(benchmark PRIVATE -O3 -march=native -mtune=native -flto
+                                         -ffast-math)
 target_link_options(benchmark PRIVATE -flto)
 target_link_libraries(benchmark PRIVATE benchmark::benchmark_main pthread)
 

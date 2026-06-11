@@ -4,7 +4,7 @@
 
 class Any {
   class Concept {
-   public:
+  public:
     virtual ~Concept() = default;
     virtual auto f() const noexcept -> void = 0;
   };
@@ -13,7 +13,7 @@ class Any {
   class Model : public Concept {
     std::unique_ptr<T> obj_;
 
-   public:
+  public:
     explicit Model(T obj) noexcept
         : obj_{std::make_unique<T>(std::move(obj))} {}
     auto f() const noexcept -> void override { obj_->f(); }
@@ -21,7 +21,7 @@ class Any {
 
   std::unique_ptr<Concept> obj_;
 
- public:
+public:
   template <typename T>
   explicit Any(T&& obj) noexcept
       : obj_{std::make_unique<Model<T>>(std::forward<T>(obj))} {}

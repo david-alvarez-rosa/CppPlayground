@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int findPeakElement(vector<int>& nums) {
     for (size_t i{0}; i < nums.size(); i++)
       if ((i == 0 || nums[i] > nums[i - 1]) &&

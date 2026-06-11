@@ -4,7 +4,7 @@
 #include <cstdint>
 
 class Solution {
- public:
+public:
   [[nodiscard]] __attribute__((always_inline)) static auto flowerGame(
       int n, int m) noexcept -> int64_t {
     return static_cast<int64_t>(n) * m / 2;

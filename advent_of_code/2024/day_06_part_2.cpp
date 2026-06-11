@@ -9,7 +9,7 @@
 #include <vector>
 
 class Map final {
- public:
+public:
   explicit Map(std::vector<std::vector<char>> map) : map_{std::move(map)} {}
 
   struct Pos {
@@ -73,7 +73,7 @@ class Map final {
     return count;
   }
 
- private:
+private:
   std::vector<std::vector<char>> map_;
   using Dir = Pos;
   std::unordered_map<char, Dir> directions_{
@@ -178,7 +178,7 @@ auto ParseInputFile(const std::string& file_name) -> Map {
 }
 
 class Timer final {
- public:
+public:
   explicit Timer(int iterations) noexcept
       : iterations_{iterations},
         start_time_{std::chrono::high_resolution_clock::now()} {}
@@ -196,7 +196,7 @@ class Timer final {
     std::cout << "Elapsed time: " << elapsed_time.count() / iterations_ << "\n";
   }
 
- private:
+private:
   int iterations_;
   std::chrono::time_point<std::chrono::high_resolution_clock>
       start_time_;  // Must be last

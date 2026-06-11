@@ -6,7 +6,7 @@ using namespace std;
 using namespace testing;
 
 class Solution {
- public:
+public:
   vector<int> productExceptSelf(vector<int>& nums) {
     const auto n{nums.size()};
     vector<int> ans(n);

@@ -14,7 +14,7 @@ struct TreeNode {
 };
 
 class Solution {
- public:
+public:
   int findBottomLeftValue(TreeNode* root) {
     queue<TreeNode*> q;
     q.push(root);

@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int lengthOfLIS(vector<int>& nums) {
     dp_ =
         vector<vector<int>>(nums.size() + 1, vector<int>(nums.size() + 1, -1));
@@ -12,7 +12,7 @@ class Solution {
     return f(0, nums_.size());
   }
 
- private:
+private:
   int f(int start, int prev) {
     auto& x = dp_[start][prev];
     if (x != -1) return x;

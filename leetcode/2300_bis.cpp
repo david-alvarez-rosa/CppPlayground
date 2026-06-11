@@ -6,7 +6,7 @@ using namespace std;
 using namespace testing;
 
 class Solution {
- public:
+public:
   vector<int> successfulPairs(vector<int>& spells, vector<int>& potions,
                               long long success) {
     const auto n{spells.size()};

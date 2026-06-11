@@ -5,7 +5,7 @@
 class Solution {
   constexpr static int kMod = 1e9 + 7;
 
- public:
+public:
   [[nodiscard]]
   static auto peopleAwareOfSecret(int n, int delay, int forget,
                                   int curr = 1) noexcept -> int {

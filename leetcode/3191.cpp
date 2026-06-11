@@ -3,7 +3,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   static int minOperations(std::vector<int>& nums) {
     int count = 0, n = nums.size();
 

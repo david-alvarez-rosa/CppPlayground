@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   bool validPath(int n, vector<vector<int>>& edges, int source,
                  int destination) {
     for (size_t i{0}; i < n; i++) parents_.emplace_back(i);
@@ -12,7 +12,7 @@ class Solution {
     return Find(source) == Find(destination);
   }
 
- private:
+private:
   void Union(int x, int y) {
     auto root_x = Find(x);
     auto root_y = Find(y);

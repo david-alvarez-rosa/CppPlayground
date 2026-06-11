@@ -3,7 +3,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   static int areaOfMaxDiagonal(std::vector<std::vector<int>>& dimensions) {
     auto max_diagonal{0}, max_area{0};
 

@@ -32,7 +32,7 @@ struct hash<Pos> {  // Must define hash func
 }  // namespace std
 
 class TopographicMap final {
- public:
+public:
   explicit TopographicMap(std::vector<std::vector<int>> raw_map)
       : raw_map_{std::move(raw_map)} {}
 
@@ -49,7 +49,7 @@ class TopographicMap final {
     return sum;
   }
 
- private:
+private:
   std::vector<std::vector<int>> raw_map_;
   std::vector<std::vector<int>> adj_;
   std::vector<Pos> directions_{

@@ -6,7 +6,7 @@ using namespace std;
 using namespace testing;
 
 class Solution {
- public:
+public:
   vector<int> sortedSquares(vector<int>& nums) {
     size_t mid{0};
     while (mid < nums.size() && nums[mid] < 0) mid++;

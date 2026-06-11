@@ -3,7 +3,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   static int longestSubarray(std::vector<int>& nums) {
     auto ans = 0, ones = 0;
 

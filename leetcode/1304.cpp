@@ -4,7 +4,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   [[nodiscard]]
   static auto sumZero(int num) noexcept -> std::vector<int> {
     auto ans = std::vector<int>{};

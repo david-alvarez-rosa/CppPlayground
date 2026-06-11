@@ -49,7 +49,7 @@ struct NodeHash {  // Must define for hash set / hash map
 };
 
 class Maze final {
- public:
+public:
   explicit Maze(std::vector<std::vector<char>> maze) : maze_{maze} {}
 
   [[nodiscard]] auto ComputeScore() const noexcept -> int {
@@ -101,7 +101,7 @@ class Maze final {
     return lowest_score;
   }
 
- private:
+private:
   std::vector<std::vector<char>> maze_;
 
   [[nodiscard]] auto FindEndPos() const noexcept -> Pos {

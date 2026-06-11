@@ -6,7 +6,7 @@ using namespace std;
 using namespace testing;
 
 class Solution {
- public:
+public:
   vector<string> letterCombinations(string digits, int start = 0) {
     if (digits.empty()) return {};
     vector<string> ans = {""};
@@ -19,7 +19,7 @@ class Solution {
     return ans;
   }
 
- private:
+private:
   const vector<string> pad_ = {"abc", "def",  "ghi", "jkl",
                                "mno", "pqrs", "tuv", "wxyz"};
 };

@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int timeRequiredToBuy(vector<int>& tickets, int k) {
     int ans{0};
     for (int i{0}; i <= k; i++) ans += min(tickets[k], tickets[i]);

@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   bool increasingTriplet(vector<int>& nums) {
     auto a{INT_MAX}, b{INT_MAX};
     for (const auto num : nums) {

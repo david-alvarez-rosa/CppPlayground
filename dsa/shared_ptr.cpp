@@ -3,18 +3,18 @@
 #include <atomic>
 
 class MyType {
- public:
+public:
   explicit MyType(int num) noexcept : num_{num} {};
   inline auto GetNum() const noexcept -> int { return num_; }
   inline auto SetNum(int num) noexcept -> void { num_ = num; }
 
- private:
+private:
   int num_;
 };
 
 template <typename T>
 class SharedPtr {
- public:
+public:
   explicit SharedPtr() noexcept = default;
 
   explicit SharedPtr(T* ptr) noexcept
@@ -65,7 +65,7 @@ class SharedPtr {
     std::swap(ref_counter_, other.ref_counter_);
   }
 
- private:
+private:
   T* ptr_{nullptr};
   std::atomic_uint* ref_counter_{nullptr};
 

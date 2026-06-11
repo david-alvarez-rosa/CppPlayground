@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int tribonacci(int n) {
     auto& x = dp_[n];
     if (x != -1) return x;
@@ -13,7 +13,7 @@ class Solution {
     return x = tribonacci(n - 1) + tribonacci(n - 2) + tribonacci(n - 3);
   }
 
- private:
+private:
   vector<int> dp_ = vector<int>(38, -1);
 };
 

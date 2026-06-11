@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   bool rotateString(string s, string goal) {
     if (s.length() != goal.length()) return false;
 
@@ -14,7 +14,7 @@ class Solution {
     return false;
   }
 
- private:
+private:
   bool same(size_t start, const string& s, const string& goal) {
     auto n{s.length()};
 

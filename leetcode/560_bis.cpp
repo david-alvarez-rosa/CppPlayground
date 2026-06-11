@@ -5,7 +5,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   int subarraySum(std::vector<int>& nums, int k, int start = 0) {
     auto sum = 0, ans{0};
     std::unordered_map<int, int> fqs;

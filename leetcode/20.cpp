@@ -4,7 +4,7 @@
 #include <string>
 
 class Solution {
- public:
+public:
   [[nodiscard]] static auto isValid(std::string input) noexcept -> bool {
     auto st = std::stack<char>{};
 

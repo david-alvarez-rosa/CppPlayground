@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   long long countSubarrays(vector<int>& nums, int k) {
     int maxi = *max_element(nums.cbegin(), nums.cend()), count{0};
     long long ans{0};

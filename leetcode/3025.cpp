@@ -3,7 +3,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   [[nodiscard]]
   static auto numberOfPairs(std::vector<std::vector<int>>& points) noexcept
       -> int {

@@ -3,7 +3,7 @@
 #include <cstdint>
 
 class Solution {
- public:
+public:
   [[nodiscard]]
   static auto makeTheIntegerZero(int64_t num1, int64_t num2) noexcept -> int {
     for (auto i = 1; i <= 60; ++i) {

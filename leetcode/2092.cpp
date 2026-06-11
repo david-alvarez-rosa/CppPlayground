@@ -6,7 +6,7 @@ using namespace std;
 using namespace testing;
 
 class Solution {
- public:
+public:
   vector<int> findAllPeople(int n, vector<vector<int>>& meetings,
                             int firstPerson) {
     /*

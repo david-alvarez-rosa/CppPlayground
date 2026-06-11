@@ -6,7 +6,7 @@
 #include <vector>
 
 class Solution {
- public:
+public:
   [[nodiscard]]
   static auto maxAverageRatio(std::vector<std::vector<int>>& classes,
                               int extraStudents) noexcept -> double {

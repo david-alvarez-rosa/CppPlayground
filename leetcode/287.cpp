@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
- public:
+public:
   int findDuplicate(vector<int>& nums) {
     sort(nums.begin(), nums.end());
     for (size_t i{1}; i < nums.size(); i++)
