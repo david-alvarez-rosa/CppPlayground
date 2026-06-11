@@ -6,7 +6,7 @@ export ASAN_OPTIONS=detect_leaks=0
 
 cp scratch/test.cpp scratch/test.cpp.backup
 
-[ -f build/debug/conan_toolchain.cmake ] || conan install . -of build/debug --build=missing -s build_type=Debug
+[ -f build/debug/conan_toolchain.cmake ] || conan install . -of build/debug --build=missing --lockfile=conan.lock -s build_type=Debug
 cmake --preset debug
 
 git diff --name-only --diff-filter=AM HEAD~9 HEAD | grep -E "leetcode/.*cpp" | while read -r file_path

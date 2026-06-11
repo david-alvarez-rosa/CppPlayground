@@ -14,8 +14,8 @@ Dependencies (GoogleTest, GoogleBenchmark) are managed with Conan
 
 Install dependencies and configure
 #+begin_src sh
-  $ conan install . -of build/release --build=missing  # Release
-  $ conan install . -of build/debug --build=missing -s build_type=Debug  # Debug
+  $ conan install . -of build/release --build=missing --lockfile=conan.lock  # Release
+  $ conan install . -of build/debug --build=missing --lockfile=conan.lock -s build_type=Debug  # Debug
 #+end_src
 
 ** Run

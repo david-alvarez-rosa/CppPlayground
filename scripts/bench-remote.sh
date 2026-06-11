@@ -28,7 +28,7 @@ ssh root@homelab '
 
 rsync -rlpc --delete --exclude build/ --exclude .git/ ./ 'homelab:~/tmp/CppPlayground/'
 ssh homelab "cd ~/tmp/CppPlayground/ &&
-  conan install . -of build/release --build=missing &&
+  conan install . -of build/release --build=missing --lockfile=conan.lock &&
   cmake --preset release &&
   cmake --build --preset release --target benchmark &&
   taskset -c 0-4 ./build/release/benchmark $*"
