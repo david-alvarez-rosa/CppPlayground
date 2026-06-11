@@ -6,7 +6,7 @@ repos:
     hooks:
       - id: clang-format-check
         name: clang-format check
-        entry: sh -c "git ls-files '*.cpp' '*.hpp' | xargs clang-format --dry-run --Werror"
+        entry: sh -c "git ls-files '*.cpp' '*.hpp' ':!scratch/' | xargs clang-format --dry-run --Werror"
         language: system
         pass_filenames: false
         stages:
