@@ -2,6 +2,7 @@
 
 static auto bench(benchmark::State& state) -> void {
   for (auto _ : state) {
+
   }
 }
 
