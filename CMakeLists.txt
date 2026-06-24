@@ -37,6 +37,8 @@ target_compile_options(
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   target_compile_options(main PRIVATE -fsanitize=address -fsanitize=undefined)
   target_link_options(main PRIVATE -fsanitize=address -fsanitize=undefined)
+  # target_compile_options(main PRIVATE -fsanitize=thread)
+  # target_link_options(main PRIVATE -fsanitize=thread)
 elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
   target_compile_options(main PRIVATE -O3 -march=native -ffast-math)
 endif()
