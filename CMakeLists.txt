@@ -43,7 +43,7 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
   target_compile_options(main PRIVATE -O3 -march=native -ffast-math)
 endif()
 
-add_executable(tests "scratch/test.cpp")
+add_executable(tests "scratch/tests.cpp")
 target_compile_options(
   tests
   PRIVATE -g
