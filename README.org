@@ -2,7 +2,7 @@
 
 A sandbox environment for C++ experimentation:
 - *Run code* with ~scratch/main.cpp~ or ~scratch/fast.cpp~
-- *Test code* with ~scratch/test.cpp~ using GoogleTest
+- *Test code* with ~scratch/tests.cpp~ using GoogleTest
 - *Benchmark code* with ~scratch/benchmark.cpp~ using GoogleBenchmark
 - *View assembly* with ~scratch/assembly.cpp~
 
@@ -69,7 +69,7 @@ Alternatively, for faster prototyping without any checks, use the
 
 ** Test
 
-Edit ~scratch/test.cpp~ file
+Edit ~scratch/tests.cpp~ file
 
 #+begin_src sh
   $ cmake --preset debug  # Configure
