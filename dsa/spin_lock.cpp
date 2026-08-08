@@ -1,4 +1,7 @@
 #include <benchmark/benchmark.h>
+#include <immintrin.h>
+#include <pthread.h>
+#include <sched.h>
 
 #include <algorithm>
 #include <atomic>
@@ -34,7 +37,7 @@ public:
     while (true) {
       if (!locked_.exchange(true)) return;
       do {
-        for (volatile int i = 0; i < 150; ++i);
+        for (volatile auto i = 0; i < 150; ++i);
       } while (locked_.load());
     }
   }
