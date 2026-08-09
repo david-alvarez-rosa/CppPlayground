@@ -3,7 +3,6 @@
 #include <pthread.h>
 #include <sched.h>
 
-#include <algorithm>
 #include <atomic>
 #include <cstdint>
 #include <cstdlib>
@@ -34,14 +33,11 @@ class SpinLockV2 {
 
 public:
   auto lock() noexcept -> void {
-    while (true) {
-      if (!locked_.exchange(true)) return;
-      do {
-        for (volatile auto i = 0; i < 150; ++i);
-      } while (locked_.load());
-    }
+    while (locked_.exchange(true, std::memory_order_acquire));
   }
-  auto unlock() noexcept -> void { locked_.store(false); }
+  auto unlock() noexcept -> void {
+    locked_.store(false, std::memory_order_release);
+  }
 };
 
 class SpinLockV3 {
@@ -49,14 +45,15 @@ class SpinLockV3 {
 
 public:
   auto lock() noexcept -> void {
-    while (true) {
-      if (!locked_.exchange(true)) return;
-      do {
-        for (auto i = 0; i < 4; ++i) _mm_pause();
-      } while (locked_.load());
+    while (locked_.exchange(true, std::memory_order_acquire)) {
+      while (locked_.load(std::memory_order_relaxed)) {  // Read-only spin
+        _mm_pause();                                     // Backoff
+      }
     }
   }
-  auto unlock() noexcept -> void { locked_.store(false); }
+  auto unlock() noexcept -> void {
+    locked_.store(false, std::memory_order_release);
+  }
 };
 
 class SpinLockV4 {
@@ -64,16 +61,17 @@ class SpinLockV4 {
 
 public:
   auto lock() noexcept -> void {
-    auto backoff_iters = 4;
-    while (true) {
-      if (!locked_.exchange(true)) return;
+    auto mask = 64;
+    while (locked_.exchange(true, std::memory_order_acquire)) {
       do {
-        for (auto i = 0; i < backoff_iters; ++i) _mm_pause();
-        backoff_iters = std::min(backoff_iters << 1, 1024);
-      } while (locked_.load());
+        for (auto i = 0; i < mask; ++i) _mm_pause();      // Backoff
+        mask = mask < 1024 ? mask << 1 : 1024;            // Exp. growth
+      } while (locked_.load(std::memory_order_relaxed));  // Read-only
     }
   }
-  auto unlock() noexcept -> void { locked_.store(false); }
+  auto unlock() noexcept -> void {
+    locked_.store(false, std::memory_order_release);
+  }
 };
 
 auto pinThread(int cpu_id) noexcept -> void {
