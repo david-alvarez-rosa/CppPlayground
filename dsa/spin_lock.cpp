@@ -85,9 +85,9 @@ auto BM_SpinLock(benchmark::State& state) -> void {
 
   pinThread(state.thread_index());
   for (auto _ : state) {
-    spin_lock.lock();
+    lock.lock();
     ++val;
-    spin_lock.unlock();
+    lock.unlock();
   }
   benchmark::DoNotOptimize(val);
 }
