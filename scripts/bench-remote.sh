@@ -16,7 +16,8 @@ trap "ssh root@homelab '
   echo $prev_boost > /sys/devices/system/cpu/cpufreq/boost
   echo $prev_thp > /sys/kernel/mm/transparent_hugepage/enabled
   echo $prev_aslr > /proc/sys/kernel/randomize_va_space
-  echo $prev_nmi > /proc/sys/kernel/nmi_watchdog'" EXIT
+  echo $prev_nmi > /proc/sys/kernel/nmi_watchdog
+  for pid in \$(ps -eo pid --no-headers); do taskset -apc 0-\$((\$(nproc --all) - 1)) \$pid; done >/dev/null 2>&1 || true'" EXIT
 
 ssh root@homelab '
   echo off > /sys/devices/system/cpu/smt/control
@@ -24,11 +25,12 @@ ssh root@homelab '
   echo 0 > /sys/devices/system/cpu/cpufreq/boost
   echo never > /sys/kernel/mm/transparent_hugepage/enabled
   echo 0 > /proc/sys/kernel/randomize_va_space
-  echo 0 > /proc/sys/kernel/nmi_watchdog'
+  echo 0 > /proc/sys/kernel/nmi_watchdog
+  for pid in $(ps -eo pid --no-headers); do taskset -apc 4-7 $pid; done >/dev/null 2>&1 || true'
 
 rsync -rlpc --delete --exclude build/ --exclude .git/ ./ 'homelab:~/tmp/CppPlayground/'
 ssh homelab "cd ~/tmp/CppPlayground/ &&
   conan install . -of build/release -pr conan/profile-homelab --build=missing --lockfile=conan.lock &&
   cmake --preset release &&
   cmake --build --preset release --target benchmark &&
-  taskset -c 0-4 ./build/release/benchmark $*"
+  taskset -c 0-3 ./build/release/benchmark $*"
