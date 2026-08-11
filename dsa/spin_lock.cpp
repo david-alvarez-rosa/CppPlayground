@@ -1,14 +1,11 @@
 #include <benchmark/benchmark.h>
-#include <immintrin.h>
+#include <emmintrin.h>
 #include <pthread.h>
 #include <sched.h>
 
 #include <atomic>
 #include <cstdint>
-#include <cstdlib>
 #include <mutex>
-#include <thread>
-#include <vector>
 
 namespace {
 
@@ -61,12 +58,12 @@ class SpinLockV4 {
 
 public:
   auto lock() noexcept -> void {
-    auto mask = 64;
+    auto backoff = 1;
     while (locked_.exchange(true, std::memory_order_acquire)) {
       do {
-        for (auto i = 0; i < mask; ++i) _mm_pause();      // Backoff
-        mask = mask < 1024 ? mask << 1 : 1024;            // Exp. growth
-      } while (locked_.load(std::memory_order_relaxed));  // Read-only
+        for (auto i = 0; i < backoff; ++i) _mm_pause();  // Backoff
+        backoff = backoff < 64 ? backoff << 1 : 64;      // Exp. growth
+      } while (locked_.load(std::memory_order_relaxed));  // Read-only spin
     }
   }
   auto unlock() noexcept -> void {
@@ -74,71 +71,31 @@ public:
   }
 };
 
-auto pinThread(int cpu_id) noexcept -> void {
-  cpu_set_t cpuset;
+auto pinThread(int cpu) noexcept -> void {
+  auto cpuset = cpu_set_t{};
   CPU_ZERO(&cpuset);
-  CPU_SET(cpu_id, &cpuset);
-  if (pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset) != 0)
-      [[unlikely]] {
-    std::exit(EXIT_FAILURE);
-  }
+  CPU_SET(cpu, &cpuset);
+  pthread_setaffinity_np(pthread_self(), sizeof(cpuset), &cpuset);
 }
 
-template <typename SpinLock>
+template <typename Lock>
 auto BM_SpinLock(benchmark::State& state) -> void {
-  constexpr auto num_increments = 250'000U;
-  const auto num_threads = state.range(0);
+  static auto lock = Lock{};
+  static auto val = std::uint64_t{};
 
-  auto spin_lock = SpinLock{};
-  auto val = std::uint64_t{};
-  auto threads = std::vector<std::thread>{};
-  threads.reserve(num_threads);
-
+  pinThread(state.thread_index());
   for (auto _ : state) {
-    for (auto i = 0U; i < num_threads; ++i) {
-      threads.emplace_back([&, i] {
-        pinThread(i);
-        for (auto j = 0U; j < num_increments / num_threads; ++j) {
-          spin_lock.lock();
-          ++val;
-          spin_lock.unlock();
-        }
-      });
-    }
-    for (auto& thread : threads) thread.join();
-    benchmark::DoNotOptimize(val);
-    threads.clear();
+    spin_lock.lock();
+    ++val;
+    spin_lock.unlock();
   }
+  benchmark::DoNotOptimize(val);
 }
 
 }  // namespace
 
-BENCHMARK(BM_SpinLock<SpinLockV0>)
-    ->RangeMultiplier(2)
-    ->Range(1, 4)
-    ->UseRealTime()
-    ->Unit(benchmark::kMillisecond);
-
-BENCHMARK(BM_SpinLock<SpinLockV1>)
-    ->RangeMultiplier(2)
-    ->Range(1, 4)
-    ->UseRealTime()
-    ->Unit(benchmark::kMillisecond);
-
-BENCHMARK(BM_SpinLock<SpinLockV2>)
-    ->RangeMultiplier(2)
-    ->Range(1, 4)
-    ->UseRealTime()
-    ->Unit(benchmark::kMillisecond);
-
-BENCHMARK(BM_SpinLock<SpinLockV3>)
-    ->RangeMultiplier(2)
-    ->Range(1, 4)
-    ->UseRealTime()
-    ->Unit(benchmark::kMillisecond);
-
-BENCHMARK(BM_SpinLock<SpinLockV4>)
-    ->RangeMultiplier(2)
-    ->Range(1, 4)
-    ->UseRealTime()
-    ->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_SpinLock<SpinLockV0>)->ThreadRange(1, 4)->UseRealTime();
+BENCHMARK(BM_SpinLock<SpinLockV1>)->ThreadRange(1, 4)->UseRealTime();
+BENCHMARK(BM_SpinLock<SpinLockV2>)->ThreadRange(1, 4)->UseRealTime();
+BENCHMARK(BM_SpinLock<SpinLockV3>)->ThreadRange(1, 4)->UseRealTime();
+BENCHMARK(BM_SpinLock<SpinLockV4>)->ThreadRange(1, 4)->UseRealTime();
