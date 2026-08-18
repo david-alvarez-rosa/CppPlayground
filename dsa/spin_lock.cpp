@@ -5,17 +5,9 @@
 
 #include <atomic>
 #include <cstdint>
-#include <mutex>
+#include <new>
 
 namespace {
-
-class SpinLockV0 {
-  std::mutex mutex_;
-
-public:
-  auto lock() -> void { mutex_.lock(); }
-  auto unlock() noexcept -> void { mutex_.unlock(); }
-};
 
 class SpinLockV1 {
   std::atomic_bool locked_{false};
@@ -80,7 +72,8 @@ auto pinThread(int cpu) noexcept -> void {
 
 template <typename Lock>
 auto BM_SpinLock(benchmark::State& state) -> void {
-  static auto lock = Lock{};
+  alignas(std::hardware_destructive_interference_size) static auto lock =
+      Lock{};
   static auto val = std::uint64_t{};
 
   pinThread(state.thread_index());
@@ -94,8 +87,22 @@ auto BM_SpinLock(benchmark::State& state) -> void {
 
 }  // namespace
 
-BENCHMARK(BM_SpinLock<SpinLockV0>)->ThreadRange(1, 4)->UseRealTime();
-BENCHMARK(BM_SpinLock<SpinLockV1>)->ThreadRange(1, 4)->UseRealTime();
-BENCHMARK(BM_SpinLock<SpinLockV2>)->ThreadRange(1, 4)->UseRealTime();
-BENCHMARK(BM_SpinLock<SpinLockV3>)->ThreadRange(1, 4)->UseRealTime();
-BENCHMARK(BM_SpinLock<SpinLockV4>)->ThreadRange(1, 4)->UseRealTime();
+BENCHMARK(BM_SpinLock<SpinLockV1>)
+    ->ThreadRange(1, 4)
+    ->UseRealTime()
+    ->Iterations(1'000'000);
+
+BENCHMARK(BM_SpinLock<SpinLockV2>)
+    ->ThreadRange(1, 4)
+    ->UseRealTime()
+    ->Iterations(1'000'000);
+
+BENCHMARK(BM_SpinLock<SpinLockV3>)
+    ->ThreadRange(1, 4)
+    ->UseRealTime()
+    ->Iterations(1'000'000);
+
+BENCHMARK(BM_SpinLock<SpinLockV4>)
+    ->ThreadRange(1, 4)
+    ->UseRealTime()
+    ->Iterations(1'000'000);
