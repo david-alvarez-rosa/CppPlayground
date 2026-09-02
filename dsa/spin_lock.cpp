@@ -70,19 +70,20 @@ auto pinThread(int cpu) noexcept -> void {
   pthread_setaffinity_np(pthread_self(), sizeof(cpuset), &cpuset);
 }
 
-template <typename Lock>
+template <typename Lockable>
 auto BM_SpinLock(benchmark::State& state) -> void {
-  alignas(std::hardware_destructive_interference_size) static auto lock =
-      Lock{};
-  static auto val = std::uint64_t{};
+  alignas(std::hardware_destructive_interference_size) static auto lockable =
+      Lockable{};
+  alignas(std::hardware_destructive_interference_size) static auto counter =
+      std::uint64_t{};
 
   pinThread(state.thread_index());
   for (auto _ : state) {
-    lock.lock();
-    ++val;
-    lock.unlock();
+    lockable.lock();
+    ++counter;
+    lockable.unlock();
   }
-  benchmark::DoNotOptimize(val);
+  benchmark::DoNotOptimize(counter);
 }
 
 }  // namespace
